@@ -1,0 +1,1 @@
+Diretorio de scripts, script shell, scripts de banco e outros relacionados ao projeto

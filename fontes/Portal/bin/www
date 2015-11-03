@@ -1,0 +1,47 @@
+#!/usr/bin/env node
+var cluster = require('cluster');
+var conf = require('../conf/conf');
+
+console.log('Inicializando Aplicação modo: ' + conf.env);
+
+
+if (cluster.isMaster && conf.env === 'prod') {
+
+    var numCPUs = conf.instancias;
+
+    if(!conf.instancias){
+        numCPUs = require('os').cpus().length;
+    }
+
+
+    console.log('Inicializando ' + numCPUs + ' threads.');
+
+    for (var i = 0; i < numCPUs; i++) {
+        cluster.fork();
+    }
+
+    cluster.on('exit', function() {
+        console.log('Uma instância morreu reinicializando.');
+        cluster.fork();
+    });
+
+} else {
+
+    inicializa();
+
+}
+
+
+
+function inicializa() {
+
+    var debug = require('debug')('SuperAvanco');
+    var app = require('../app');
+
+    app.set('port', conf.porta || 3000);
+
+    var server = app.listen(app.get('port'), function () {
+        debug('Express server listening on port ' + server.address().port);
+    });
+
+}

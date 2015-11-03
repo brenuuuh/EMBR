@@ -1,0 +1,1 @@
+Diretorio de fontes, diretorio que deve conter o workspace do projeto

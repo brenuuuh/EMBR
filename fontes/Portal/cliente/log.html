@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+        <style>
+
+            pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; }
+            .string { color: green; }
+            .number { color: darkorange; }
+            .boolean { color: blue; }
+            .null { color: magenta; }
+            .key { color: red; }
+
+        </style>
+    </head>
+    <body>
+
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Log Erp</a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                    <!--<form class="navbar-form navbar-left" role="search">-->
+                        <!--<div class="form-group">-->
+                            <!--<input type="text" class="form-control" placeholder="Search">-->
+                        <!--</div>-->
+                        <!--<button type="submit" class="btn btn-default">Pesquisar</button>-->
+                    <!--</form>-->
+
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+        <div class="container">
+            <div id="logs"></div>
+        </div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js" ></script>
+        <script>
+
+            var logs = $("#logs");
+
+            var dateOptions = {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit"
+            };
+
+
+            $(document).on("click",'.showJson', function() {
+                $(this).parent().find('.json').toggle();
+            });
+
+
+
+
+            if(typeof(EventSource) !== "undefined") {
+
+                var source = new EventSource("/log");
+
+                source.addEventListener('message', function(msg){
+
+                    //logs.appendChild(document.createElement('pre')).innerHTML += syntaxHighlight(output(msg)) + "<br>";
+
+                    var msgJson = JSON.parse(msg.data);
+
+                    var body = '<p><strong>Data: </strong> ' + new Date(msgJson.time).toLocaleDateString("pt-BR", dateOptions) + ' </p>' +
+                               '<p><strong>Msg: </strong> ' + msgJson.msg + ' </p>' +
+                               (msgJson.err ? '<p><strong>Err: </strong> ' + msgJson.err.message + ' </p>' : '' ) +
+                               '<button class="showJson">Mostrar Json</button>' +
+                               '<pre class="json" style="display: none">' + syntaxHighlight(output(msgJson)) + '</pre>';
+
+                    if(msgJson.level <= 40)
+                        logs.append('<div class=\"panel panel-info\"><div class=\"panel-body\">' +  body + '<\/div><\/div><\/div>');
+                    else
+                        logs.append('<div class=\"panel panel-danger\"><div class=\"panel-body\">' +  body + '<\/div><\/div><\/div>');
+
+                    window.scrollTo(0,document.body.scrollHeight);
+
+                    //Exibe os ultimos  500 logs
+//                    if(logs.childNodes.length > 500){
+//                        logs.removeChild(logs.childNodes[0]);
+//                    }
+
+                }, false);
+
+            } else {
+                document.getElementById("result").innerHTML = "Sorry, your browser does not support server-sent events...";
+            }
+
+            function output(json){
+                return JSON.stringify(json, undefined, 2);
+            }
+
+
+            function syntaxHighlight(json) {
+                json = json.replace(/&/g, '&').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+                    var cls = 'number';
+                    if (/^"/.test(match)) {
+                        if (/:$/.test(match)) {
+                            cls = 'key';
+                        } else {
+                            cls = 'string';
+                        }
+                    } else if (/true|false/.test(match)) {
+                        cls = 'boolean';
+                    } else if (/null/.test(match)) {
+                        cls = 'null';
+                    }
+                    return '<span class="' + cls + '">' + match + '</span>';
+                });
+            }
+
+        </script>
+
+    </body>
+</html>

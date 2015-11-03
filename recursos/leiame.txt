@@ -1,0 +1,1 @@
+Diretorio de recursos, arquivos necessarios para o projeto como imagens, ini e outros relacionados ao projeto
