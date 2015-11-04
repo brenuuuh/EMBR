@@ -1,22 +1,20 @@
 /**
- * Created by breno on 07/10/15.
+ * Created by breno on 03/11/15.
  */
-Ext.define('Admin.view.eventos.Eventos', {
-    extend: 'Ext.container.Container',
-    style: 'margin-bottom: 1%;',
-    xtype: 'eventos',
-    responsiveCls: 'big-100',
-    height: 900,
+Ext.define('Admin.view.lista.ListaEventos', {
+    extend:'Ext.container.Container',
+    xtype: 'lista',
+
+    height: 300,
     requires: [
-        'Admin.view.eventos.EventosController',
-        'Admin.view.eventos.EventosModel',
-        'Ext.layout.container.Border'
+        'Admin.view.lista.ListaController',
+        'Admin.view.lista.ListaModel',
+        'Ext.layout.container.Border',
+        'Ext.grid.column.Action'
     ],
-
-    controller: 'eventos',
-
+    controller: 'lista',
     viewModel: {
-        type: 'eventos'
+        type: 'lista'
     },
     layout: 'border',
     defaults: {
@@ -25,21 +23,18 @@ Ext.define('Admin.view.eventos.Eventos', {
     },
     items: [
         {
-            region: 'north',
+            region: 'center',
             title: 'Eventos',
-            overflowY: 'scroll',
             responsiveCls: 'big-100',
             xtype: 'grid',
-            itemId: 'GridEventos',
-            reference: 'GridEventos',
+            itemId: 'GridLista',
             columnLines: true,
-            height: 300,
+            reference: 'GridLista',
             publishes: 'selection',
             bind: {
-                store: '{eventos}'
+                store: '{lista}'
             },
             columns: [
-
                 Ext.create('Ext.grid.RowNumberer'),
                 {
 
@@ -66,22 +61,22 @@ Ext.define('Admin.view.eventos.Eventos', {
                     flex:1
                 },
                 {
-                        text: 'Tipo',
-                        xtype: 'widgetcolumn',
-                        dataIndex: 'tipo',
-                        flex: 1,
-                        widget:{
-                            xtype: 'combo',
-                            bind:{
-                                store:'{eventos}'
-                            },
-                            queryMode: 'local',
-                            valueField: 'tipo',
-                            displayField: 'tipo',
-                            editable:true
-                        }
+                    text: 'Tipo',
+                    xtype: 'widgetcolumn',
+                    dataIndex: 'tipo',
+                    flex: 1,
+                    widget:{
+                        xtype: 'combo',
+                        bind:{
+                            store:'{lista}'
+                        },
+                        queryMode: 'local',
+                        valueField: 'tipo',
+                        displayField: 'tipo',
+                        editable:true
+                    }
 
-                    },
+                },
                 {
                     text: 'Classificação',
                     xtype: 'widgetcolumn',
@@ -90,7 +85,7 @@ Ext.define('Admin.view.eventos.Eventos', {
                     widget:{
                         xtype: 'combo',
                         bind:{
-                            store:'{eventos}'
+                            store:'{lista}'
                         },
                         queryMode: 'local',
                         valueField: 'faixa',
@@ -100,7 +95,6 @@ Ext.define('Admin.view.eventos.Eventos', {
 
                 },
                 {
-
                     text: 'Status',
                     dataIndex: 'status',
                     flex:1
@@ -109,42 +103,37 @@ Ext.define('Admin.view.eventos.Eventos', {
             ],
             dockedItems: [
                 {
+                    xtype: 'pagingtoolbar',
+                    dock: 'bottom',
+                    bind: {
+                        store: '{lista}'
+                    },
+                    displayInfo: true,
+                    displayMsg: 'Mostrando {0} - {1} of {2}',
+                    emptyMsg: "Nenhum registro."
+                },
+
+                {
                     xtype: 'toolbar',
                     dock: 'top',
                     items: [
                         {
                             xtype: 'button',
-                            text: 'Adicionar',
+                            text: 'Confirmar Presença',
                             ui: 'soft-blue',
-                            handler: 'onClickNovoEvento'
-                        },
-                        {
-                            xtype: 'button',
-                            text: 'Cancelar',
-                            ui: 'soft-blue',
-                            handler: 'OnClickRemove'
-                        },
-                        {
-                            xtype: 'button',
-                            text: 'Remover',
-                            ui: 'soft-blue',
-                            handler: 'OnClickDel'
+                            handler: 'OnConfirmaPresenca'
+
                         }
+
+
                     ]
-                },
-                {
-                    xtype: 'pagingtoolbar',
-                    dock: 'bottom',
-                    bind: {
-                        store: '{eventos}'
-                    },
-                    displayInfo: true,
-                    displayMsg: 'Mostrando {0} - {1} de {2}',
-                    emptyMsg: "Nenhum registro."
                 }
             ]
 
         }
-        ]
+
+    ]
+
+
 
 });

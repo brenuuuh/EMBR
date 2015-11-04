@@ -4,7 +4,7 @@
 /**
  * Created by lorena on 03/08/15.
  */
-Ext.define('Admin.view.eventos.EventosModel',{
+Ext.define('Admin.view.lista.ListaModel',{
     extend: 'Ext.app.ViewModel',
     requires: [
         'Ext.data.Store',
@@ -14,10 +14,10 @@ Ext.define('Admin.view.eventos.EventosModel',{
         'Admin.view.dashboard.BasicModel'
     ],
 
-    alias: 'viewmodel.eventos',
+    alias: 'viewmodel.lista',
 
     stores:{
-        eventos: {
+        lista: {
             model: 'Admin.view.dashboard.BasicModel',
 
             proxy: {

@@ -7,10 +7,10 @@ Ext.define('Admin.store.NavigationTree', {
         children: [
             {
                 text:   'Eventos',
-                view:   'eventos.Eventos',
+                view:   'lista.ListaEventos',
                 leaf:   true,
                 iconCls: 'x-fa fa-desktop',
-                routeId:'eventos'
+                routeId:'lista'
             },
             {
                 text:   'Meus Dados',

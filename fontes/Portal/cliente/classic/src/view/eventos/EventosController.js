@@ -53,63 +53,45 @@ Ext.define('Admin.view.eventos.EventosController',{
     },
     OnClickRemove : function(botao) {
 
-        var self = this;
+        var grid = botao.up('grid');
 
-        var grid   = botao.up('grid'),
-            record = grid.getSelectionModel().getSelection()[0],
-            store  = grid.getStore();
+        var store = grid.getStore();
 
-
+        var record = grid.getSelectionModel().getSelection()[0];
 
         if(record){
             Ext.MessageBox.show({
-                title:'Deseja Excluír?',
-                msg: 'Tem certeza que deseja excluir este registro?',
+                title:'Deseja Cancelar?',
+                msg: 'Tem certeza que deseja cancelar este evento ?',
                 buttons:  Ext.MessageBox.YESNO,
                 scope: this,
                 fn: function(btn) {
 
                     if(btn === 'yes'){
+                        Ext.Ajax.request({
+                            url: '/eventos/' + record.get('_id'),
+                            method: 'PUT',
+                            params: {
+                                status: 'Cancelado'
+                            },
+                            success: function (response) {
+                                Ext.ComponentQuery.query('#GridEventos')[0].getStore().load();
+                                Ext.Msg.alert('Salvo', 'Evento cancelado com sucesso.');
 
-                        store.remove(record);
-                        store.sync({
+                            },
                             failure: function (response) {
-
-                                if (response.hasException) {
-                                    // var response = response.exceptions[i].getError().response,
-                                    //   json = JSON.parse(response.responseText);
-
-                                    alert("Ocorreu um erro");
-                                    store.load();
-                                    //for (var i in response.exceptions) {
-                                    //
-                                    //    try {
-                                    //
-                                    //        var response = response.exceptions[i].getError().response,
-                                    //            json = JSON.parse(response.responseText);
-                                    //
-                                    //        Ext.Msg.alert(response.status + " " + response.statusText, "Erro ao realizar operação, motivo: <br>" + json.error);
-                                    //        store.load();
-                                    //
-                                    //    } catch (error) {
-                                    //        Ext.Msg.alert('Erro!', 'Erro não especificado!');
-                                    //        store.load();
-                                    //    }
-                                    //
-                                    //}
-                                }
-
+                                Ext.Msg.alert('Erro ao cancelar evento', JSON.parse(response.responseText).error);
                             }
                         });
 
-                        //    self.depoisAlterar && self.depoisAlterar();
+
                     }
                 },
                 animateTarget: botao,
                 icon:  Ext.MessageBox.QUESTION
             });
         }else{
-            alert('Favor Selecione um Registro.');
+            Ext.Msg.alert('Erro ao cancelar','Favor Selecionar um Registro.');
         }
 
     },
@@ -211,10 +193,93 @@ Ext.define('Admin.view.eventos.EventosController',{
         });
 
 
+    },
+
+OnClickDel: function (botao){
+    var grid = botao.up('grid'),
+    record = grid.getSelectionModel().getSelection()[0],
+    store = grid.getStore();
+
+
+if (record) {
+    Ext.MessageBox.show({
+        title: 'Deseja Excluír?',
+        msg: 'Tem certeza que deseja excluir este registro?',
+        buttons: Ext.MessageBox.YESNO,
+        scope: this,
+        fn: function (btn) {
+
+            if (btn === 'yes') {
+
+
+                Ext.Ajax.request({
+                    url: '/eventos/' + record.get('nome'),
+                    method: 'DELETE',
+
+                    success: function (response) {
+                        store.remove(record);
+                        Ext.Msg.alert('Salvo', 'Registro excluído com sucesso.');
+                    },
+                    failure: function (response) {
+                        Ext.Msg.alert('Erro ao excluir', JSON.parse(response.responseText).error);
+                    }
+                });
+
+
+            }
+        },
+        animateTarget: botao,
+        icon: Ext.MessageBox.QUESTION
+    });
+} else {
+    Ext.Msg.alert('Erro ao excluir', 'Favor Selecionar um Registro.');
+}
+
+},
+
+    OnConfirmaPresenca: function(botao) {
+        var grid = botao.up('grid'),
+            record = grid.getSelectionModel().getSelection()[0],
+            store = grid.getStore();
+
+
+        if (record) {
+            Ext.MessageBox.show({
+                title: 'Confirma presença?',
+                msg: 'Deseja confirmar sua presença nesse evento?',
+                buttons: Ext.MessageBox.YESNO,
+                scope: this,
+                fn: function (btn) {
+
+                    if (btn === 'yes') {
+
+
+                        Ext.Ajax.request({
+                            url: '/listaeventos/' + record.get('_id'),
+                            method: 'PUT',
+                            params:{
+                                status: 'Presença Confirmada'
+                            },
+
+                            success: function (response) {
+                                store.remove(record);
+                                Ext.Msg.alert('Confirmado', 'Favor verificar seu email.');
+                            },
+                            failure: function (response) {
+                                Ext.Msg.alert('Erro ao confirmar', JSON.parse(response.responseText).error);
+                            }
+                        });
+
+
+                    }
+                },
+                animateTarget: botao,
+                icon: Ext.MessageBox.QUESTION
+            });
+        } else {
+            Ext.Msg.alert('Erro ao excluir', 'Favor Selecionar um Registro.');
+        }
     }
-
-
-
 });
 
 

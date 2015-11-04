@@ -44,25 +44,25 @@ exports.update = function (req, res) {
 
 exports.destroy = function (req, res) {
 
-    var params = req.body;
+    var params = req.params;
 
-    Model.findById(params._id, function (err, obj) {
+
+
+    Model.findOne({nome: params.nome}, function (err, obj) {
+
 
         if (err) {
             log.logger.error({err: err});
             res.status(500).send({error: err.message});
             return;
         }
-        obj.senha = params.senha;
 
-        //Atualiza a data.
-        obj.dataAlteracao = new Date();
 
-        obj.save(function (err) {
+        obj.remove(function (err) {
             if (!err) {
-                res.senchaSubmitRes(true, "Alterado com sucesso");
+                res.senchaSubmitRes(true, "Excluído com sucesso");
             } else {
-                log.logger.error({err: err });
+                log.logger.error({err: err});
                 res.senchaSubmitRes(false, err.message);
             }
         });
@@ -169,3 +169,56 @@ exports.resetarSenha = function (req, res) {
         });
 
 };
+
+exports.confirmaPresenca = function (req, res) {
+
+    var dados = req.body;
+
+    Model
+        .findOne({'nome': dados.nome})
+        .exec(function(err, data) {
+
+
+            if (err) throw err;
+
+            if (data) {
+
+                var evento = {};
+
+                evento.nome = dados.nome;
+                evento.descricao = dados.descricao;
+                evento.tipo = dados.tipo;
+                evento.faixa = dados.faixa;
+                evento.status = dados.status;
+                evento.dataEvento = dados.dataEvento;
+                evento.horaEvento = dados.horaEvento;
+                data.save();
+
+
+                var emailOptions = {
+                    from: 'brenuhfigueiredo@hotmail.com',
+                    //to:         req.user.email,
+                    to: 'veridiane.pedrosa@gmail.com',
+                    subject: 'Dados do evento confirmado',
+                    html: '<img src=\"' + conf.dominio + '/imagem/cabecEmail\" alt=\"EMBR\">' + '<br>' +
+                    'Nome: ' + data.nome + '<br>' +
+                    'Descrição: ' + data.descricao + '<br>' +
+                    'Tipo: ' + data.tipo + '<br>' +
+                    'Classificação: ' + data.faixa + '<br>' +
+                    'Status: ' + data.status + '<br>' +
+                    'Data do Evento: ' + data.dataEvento + '<br>' +
+                    'Hora do Evento: ' + data.horaEvento + '<br>'
+
+
+                };
+                processaEmail.sendMail(emailOptions);
+
+
+                res.senchaSubmitRes(true, 'Enviando email para o usuário!');
+
+
+            }
+        });
+
+
+}
