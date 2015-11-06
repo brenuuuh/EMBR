@@ -9,24 +9,31 @@ Ext.define('Admin.store.Admin', {
         expanded: true,
         children: [
             {
+                text:   'Home',
+                view:   'home.Home',
+                leaf:   true,
+                iconCls: 'x-fa fa-home',
+                routeId: 'home'
+            },
+            {
                 text:   'Eventos',
                 view:   'eventos.Eventos',
                 leaf:   true,
-                iconCls: 'x-fa fa-desktop',
+                iconCls: 'x-fa fa-database',
                 routeId:'eventos'
             },
             {
                 text:   'Usuarios',
                 view:   'usuarios.Usuario',
                 leaf:   true,
-                iconCls: 'x-fa fa-user',
+                iconCls: 'x-fa fa-users',
                 routeId: 'usuarios'
             },
             {
                 text: 'Sair',
                 view: 'authentication.Login',
                 leaf: true,
-                iconCls: 'x-fa fa-check',
+                iconCls: 'x-fa fa-power-off',
                 routeId:'authentication.login'
             }
         ]

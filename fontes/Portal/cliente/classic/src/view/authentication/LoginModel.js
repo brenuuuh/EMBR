@@ -35,7 +35,6 @@ Ext.define('Admin.view.authentication.LoginModel', {
         dataNasc: '',
         dataInclusao: '',
         dataAlteracao: '',
-        senha: '',
         cpf : '',
         email    : '',
         login: '',

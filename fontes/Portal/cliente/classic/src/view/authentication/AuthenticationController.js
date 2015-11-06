@@ -16,7 +16,7 @@ Ext.define('Admin.view.authentication.AuthenticationController', {
             method: 'POST',
             params: {
                 login: vmData.userid,
-                senha: vmData.senha
+                senha: vmData.password
             },
             success: function (response) {
                 me.redirectTo("dashboard", true);
@@ -48,9 +48,8 @@ Ext.define('Admin.view.authentication.AuthenticationController', {
             method: 'POST',
             params: {
                 cpf: vmData.cpf,
-                login: vmData.login,
+                login: vmData.email,
                 email: vmData.email,
-                senha: vmData.senha,
                 nome: vmData.nome,
                 dataNasc: vmData.dataNasc,
                 dataAlteracao: vmData.dataAlteracao,
@@ -67,7 +66,7 @@ Ext.define('Admin.view.authentication.AuthenticationController', {
                 if (objRes.tipo == 0) {
                     Ext.Msg.alert('Usuário já cadastrado', 'Caso esqueceu sua senha, favor entrar em esqueceu sua senha.');
                 } else {
-                    Ext.Msg.alert('Erro ao cadastrar', 'Favor verificar seus dados com o setor administrativo da Avanço.');
+                    Ext.Msg.alert('Erro ao cadastrar', 'Favor verificar os dados informados.');
 
                 }
             }
@@ -75,18 +74,19 @@ Ext.define('Admin.view.authentication.AuthenticationController', {
     },
 
     onResetClick: function (button, e, eOpts) {
-
+//debugger;
         var win     = button.up('window'), //Pegamos a janela que está acima do botao que foi clicado.
             form    = win.down('form'), //Pegamos o form desta janela.
             values  = form.getValues(); //Valores atuais no formulario.
-
+//debugger;
         Ext.Ajax.request({
             url: 'usuario/resetPasswd',
+            method: 'POST',
             params: {
                 email: values
             },
             timeout: 1000000,
-            method: 'POST',
+
 
             success: function (response, opts) {
 

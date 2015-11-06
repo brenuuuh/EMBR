@@ -95,9 +95,16 @@ Ext.define('Admin.view.lista.ListaEventos', {
 
                 },
                 {
-                    text: 'Status',
+
+                    text: 'Presença ?',
+                    xtype: 'checkcolumn',
                     dataIndex: 'status',
-                    flex:1
+                    flex:1,
+                    stopSelection: false,
+                    listeners: {
+                        checkchange : 'onCheckSta'
+                    },
+                    defaultType: 'boolean'
                 }
 
             ],
@@ -113,21 +120,21 @@ Ext.define('Admin.view.lista.ListaEventos', {
                     emptyMsg: "Nenhum registro."
                 },
 
-                {
-                    xtype: 'toolbar',
-                    dock: 'top',
-                    items: [
-                        {
-                            xtype: 'button',
-                            text: 'Confirmar Presença',
-                            ui: 'soft-blue',
-                            handler: 'OnConfirmaPresenca'
-
-                        }
-
-
-                    ]
-                }
+                //{
+                //    xtype: 'toolbar',
+                //    dock: 'top',
+                //    items: [
+                //        {
+                //            xtype: 'button',
+                //            text: 'Confirmar Presença',
+                //            ui: 'soft-blue',
+                //            handler: 'OnConfirmaPresenca'
+                //
+                //        }
+                //
+                //
+                //    ]
+                //}
             ]
 
         }

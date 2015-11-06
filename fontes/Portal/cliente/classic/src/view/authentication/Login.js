@@ -56,10 +56,10 @@ Ext.define('Admin.view.authentication.Login', {
                     cls: 'auth-textbox',
                     height: 55,
                     hideLabel: true,
-                    emptyText: 'Senha',
+                    emptyText: 'Password',
                     inputType: 'password',
-                    name: 'senha',
-                    bind: '{senha}',
+                    name: 'password',
+                    bind: '{password}',
                     allowBlank : false,
                     triggers: {
                         glyphed: {

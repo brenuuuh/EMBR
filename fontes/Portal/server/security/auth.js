@@ -4,12 +4,12 @@
 exports.init = function (app) {
 
     //Carregar modulos.
-    var passport      = require('passport'),
+    var passport = require('passport'),
         LocalStrategy = require('passport-local').Strategy,
-        mongoose      = require('mongoose'),
-        Usuario       = mongoose.model('Usuario'),
-        path          = require('path'),
-        AES           = require('../utils/AES');
+        mongoose = require('mongoose'),
+        Usuario = mongoose.model('Usuario'),
+        path = require('path'),
+        AES = require('../utils/AES');
 
     //===================================================================================================
     //Urls Liberadas
@@ -17,14 +17,15 @@ exports.init = function (app) {
     var whitelist = [
         {method: 'POST', path: '/saida'},
         {method: 'POST', path: '/reducaoz'},
-        {method: 'POST', path: '/usuario'}
+        {method: 'GET', path: '/empresa/insere'},
+        {method: 'POST', path: '/usuario'},
+        {method: 'POST', path: '/usuario/resetPasswd'}
     ];
 
     //===================================================================================================
 
     //Configura estrategia de login local no passport.
     passport.use(
-
         new LocalStrategy({
                 usernameField: 'login',
                 passwordField: 'senha'
@@ -51,16 +52,21 @@ exports.init = function (app) {
 
     //Retira o id do usuario da sessao e pega todos os dados do mongodb.
     passport.deserializeUser(function (id, done) {
+
         Usuario.findById(id, function (err, user) {
-            if(!user || err) {
-                done(err, user);
+
+            if(!user || err){
+                return done(err, user);
+
             }
 
             mongoose.model('Usuario').findOne({'cpf': user.cpf}).exec(function (err, usuario) {
-                user['Usuario'] = usuario.email;
+                user['Usuario'] = usuario.cpf;
                 done(err, user);
             });
-        });
+        })
+
+
     });
 
     app.use(passport.initialize());
@@ -72,18 +78,14 @@ exports.init = function (app) {
     //======================================================================
 
     //Informa se está logado ou não.
-    app.get('/authenticated', function(req, res){
-            res.send(req.isAuthenticated());
-    });
-
-    //Informa qual usuario esta logado.
-    app.get('/user', function(req, res){
-        res.senchaRes(true, req.user);
+    app.get('/authenticated', function (req, res) {
+        //console.log('Está autenticado? ' +  (req.isAuthenticated() ? ' +To sim+ ' : ' +To não+'))
+        res.send(req.isAuthenticated());
     });
 
     //Autentica um usuário deve enviar um post com form url encoded
     //parametros login e senha
-    app.post('/login', passport.authenticate('local'), function(req, res) {
+    app.post('/login', passport.authenticate('local'), function (req, res) {
             // If this function gets called, authentication was successful.
             // `req.user` contains the authenticated user.
             res.send('true');
@@ -91,7 +93,7 @@ exports.init = function (app) {
     );
 
     //Logout
-    app.get('/logout', function(req, res) {
+    app.get('/logout', function (req, res) {
         req.logout();
         res.send('done');
     });
@@ -105,34 +107,74 @@ exports.init = function (app) {
         }
 
         // Se não estiver Unauthorized
-        res.status(401).send({ error: "Não autorizado/Apikey inválida." });
+        res.status(401).send({error: "Não autorizado"});
 
     });
 
 
+    ////Informa qual usuario esta logado.
+    app.get('/user', function (req, res) {
 
-    function checkApiKey(req){
+        res.senchaRes(true, req.user);
 
-        if(req.headers.apikey){
+    });
 
-            var ids = AES.decrypt(req.headers.apikey).split('|');
+    //app.get('/userEmp', function (req, res) {
+    //
+    //
+    //    mongoose.model('empresa').findOne({'cnpjEmpresa': res.req.user.cnpj}).exec(function (err, empresa) {
+    //
+    //        req.user._doc['empresa'] = empresa.razaoEmpresa;
+    //        req.user._doc['Filiais'] = empresa.filiais;
+    //
+    //        res.send(req.user);
+    //
+    //    });
+    //});
+    //
 
-            req.user = {login: 'api'};
-            req.user.empresa = ids[0];
-            req.session.filial  = ids[1];
+    //app.get('/userEnd', function (req, res) {
+    //
+    //
+    //    mongoose.model('empresa').findOne({'cnpjEmpresa': req.user.cnpj}).exec(function (err, empresa) {
+    //
+    //
+    //        req.user._doc['Logradouro'] = empresa.filiais[0].Logradouro;
+    //        req.user._doc['Numero'] = empresa.filiais[0].Numero;
+    //        req.user._doc['Cep'] = empresa.filiais[0].Cep;
+    //        req.user._doc['Complemento'] = empresa.filiais[0].Complemento;
+    //        req.user._doc['Bairro'] = empresa.filiais[0].Bairro;
+    //        req.user._doc['Estado'] = empresa.filiais[0].Estado;
+    //        req.user._doc['Cidade'] = empresa.filiais[0].Cidade;
+    //        res.send( req.user);
+    //
+    //    });
+    //
+    //
+    //
+    //
+    //});
 
-            return true;
+    //app.get('/log/download', function (req, res) {
+    //
+    //
+    //    mongoose.model('produto').findOne({'cnpjEmpresa': req.user.cnpj}).exec(function (err, empresa) {
+    //
+    //        if(!empresa){
+    //            res.send({});
+    //        }else {
+    //
+    //
+    //            req.user._doc['logDown'] = empresa.produtos[0].logDown;
+    //            res.send(req.user);
+    //        }
+    //    });
+    //
+    //
+    //
+    //
+    //});
 
-        }else{
-
-            console.log('Apikey nao informada.');
-            return false;
-
-        }
-
-
-
-    }
 
 
 

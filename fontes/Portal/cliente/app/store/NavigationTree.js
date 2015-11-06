@@ -6,6 +6,13 @@ Ext.define('Admin.store.NavigationTree', {
         expanded: true,
         children: [
             {
+                text:   'Home',
+                view:   'home.Home',
+                leaf:   true,
+                iconCls: 'x-fa fa-home',
+                routeId: 'home'
+            },
+            {
                 text:   'Eventos',
                 view:   'lista.ListaEventos',
                 leaf:   true,
@@ -16,22 +23,22 @@ Ext.define('Admin.store.NavigationTree', {
                 text:   'Meus Dados',
                 view:   'dashboard.Dashboard',
                 leaf:   true,
-                iconCls: 'x-fa fa-user',
+                iconCls: 'x-fa fa-list-alt',
                 routeId: 'dashboard'
             },
             {
                 text:   'Fale Conosco',
                 view:   'profile.UserProfile',
                 leaf:   true,
-                iconCls: 'x-fa fa-user',
+                iconCls: 'x-fa fa-question',
                 routeId:'profile'
             },
             {
                         text: 'Sair',
-                        view: 'authentication.Login',
+                        view: 'logout',
                         leaf: true,
-                        iconCls: 'x-fa fa-check',
-                        routeId:'authentication.login'
+                        iconCls: 'x-fa fa-power-off',
+                        routeId:'logout'
             }
         ]
     },

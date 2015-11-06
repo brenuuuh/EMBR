@@ -3,7 +3,7 @@
 //=================================================================================================
 
 var autoIncrement = require("mongoose-auto-increment");
-//var commons       = require('../../../utils/commons');
+var commons       = require('../../../utils/commons');
 
 
 module.exports = function(mongoose) {
@@ -22,6 +22,8 @@ module.exports = function(mongoose) {
         login: {type: String, required: true},
 
         admin: {type: Boolean},
+
+        tipo: {type: String, default: 2},
 
         cpf: {type: String, required: true},
 
@@ -43,7 +45,7 @@ module.exports = function(mongoose) {
                     return callback(err);
                 }
 
-                if (user && user.senha) {
+                if (user && user.senha === commons.toSha1(senha)) {
 
                     return callback(null, user);
 
@@ -59,11 +61,11 @@ module.exports = function(mongoose) {
     Model.plugin(autoIncrement.plugin, { model: 'Pessoa', field: 'sequencial',  startAt: 1 });
 
     //Impede que a senha seja serializada
-    //Model.methods.toJSON = function() {
-    //    var obj = this.toObject();
-    //    delete obj.senha;
-    //    return obj;
-    //};
+    Model.methods.toJSON = function() {
+        var obj = this.toObject();
+        delete obj.senha;
+        return obj;
+    };
 
 
     return mongoose.model("Usuario", Model);

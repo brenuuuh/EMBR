@@ -74,45 +74,6 @@ Ext.define('Admin.view.authentication.Register', {
                     }
                 },
                 {
-                    xtype: 'textfield',
-                    itemId: 'senha',
-                    inputType: 'password',
-                    cls: 'auth-textbox',
-                    height: 55,
-                    hideLabel: true,
-                    allowBlank : false,
-                    name: 'senha',
-                    emptyText: 'Senha',
-                    bind: '{senha}',
-                    minLength:6,
-                    triggers: {
-                        glyphed: {
-                            cls: 'trigger-glyph-noop auth-email-trigger'
-                        }
-                    }
-                },
-                {   xtype: 'textfield',
-                    itemId: 'senha2',
-                    inputType: 'password',
-                    cls: 'auth-textbox',
-                    height: 55,
-                    hideLabel: true,
-                    allowBlank: false,
-                    name: 'senha2',
-                    emptyText: 'Confirme sua senha',
-                    bind: '{senha2}',
-                    minLength:6,
-                    triggers: {
-                        glyphed: {
-                            cls: 'trigger-glyph-noop auth-email-trigger'
-                        }
-                    },
-                    /** * Custom validator implementation - checks that the value matches what was entered into * the password1 field. */
-                    validator: function(value)
-                    { var password1 = this.previousSibling('[name=senha]');
-                        return (value === password1.getValue()) ? true : 'Senhas não conferem.'; }
-                },
-                {
                     xtype: 'datefield',
                     itemId: 'dataNascUsr',
                     cls: 'auth-textbox',
@@ -178,10 +139,6 @@ Ext.define('Admin.view.authentication.Register', {
                         click: 'onRegisterClick'
                     }
                 },
-                //{
-                //    xtype: 'box',
-                //    html: '<div class="outer-div"><div class="seperator">OU</div></div>'
-                //},
                 {
                     xtype: 'component',
                     html: '<div style="text-align:right">' +

@@ -23,7 +23,7 @@ module.exports = function(mongoose) {
 
         faixa: {type: String, required: true, default: 'Livre'},
 
-        status: {type: String, required: true, default: 'Confirmado'},
+        status: {type: Boolean},
 
         dataEvento: {type: Date},
 

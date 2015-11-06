@@ -14,24 +14,24 @@ Ext.define('Admin.view.main.ViewportController', {
         ':node': 'onRouteChange'
     },
 
-    atualizaNomeToolbar: function () {
-        // Atualiza os dados da Toolbar
-        var toolbar = this.lookupReference('RazaoEmpresa');
-
-        Ext.Ajax.request({
-            url: '/userEmp',
-            method: 'GET',
-            success: function (response, opts) {
-                var result = Ext.decode(response.responseText);
-                toolbar.setValue(result.empresa);
-            },
-            failure: function (response, opts) {
-            }
-        });
-
-    },
+    //atualizaNomeToolbar: function () {
+    //    // Atualiza os dados da Toolbar
+    //    var toolbar = this.lookupReference('RazaoEmpresa');
+    //
+    //    Ext.Ajax.request({
+    //        url: '/userEmp',
+    //        method: 'GET',
+    //        success: function (response, opts) {
+    //            var result = Ext.decode(response.responseText);
+    //            toolbar.setValue(result.empresa);
+    //        },
+    //        failure: function (response, opts) {
+    //        }
+    //    });
+    //
+    //},
     mostraMenuCorreto: function (callback) {
-        debugger;
+        //debugger;
         // Executa um refresh na página atualizando o menu
         var navTree = this.lookupReference('navigationTreeList');
         Ext.Ajax.request({
@@ -41,7 +41,7 @@ Ext.define('Admin.view.main.ViewportController', {
             success: function (response) {
 
                 var result = Ext.decode(response.responseText);
-                if (result.data.login === 'admin') {
+                if (result.data.tipo == '1') {
                     navTree.setStore(Ext.create('Admin.store.Admin'));
                 } else {
                     navTree.setStore(Ext.create('Admin.store.NavigationTree'));
@@ -99,6 +99,7 @@ Ext.define('Admin.view.main.ViewportController', {
         }
 
         if (hashTag === 'authentication.passwordreset') {
+            //debugger;
             Ext.suspendLayouts();
             mainLayout.setActiveItem(mainCard.add(Ext.create('Admin.view.authentication.PasswordReset', {
                 hideMode: 'offsets',

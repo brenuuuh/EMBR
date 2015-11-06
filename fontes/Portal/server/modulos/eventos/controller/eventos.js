@@ -33,14 +33,14 @@ exports.cadastrarEvento = function (req, res) {
 };
 
 
-exports.update = function (req, res) {
-
-    var params = req.body,
-        id = req.params.id;
-
-    baseCrud.updateAndRespond(Model,id,params, req, res);
-
-};
+//exports.update = function (req, res) {
+//
+//    var params = req.body,
+//        id = req.params.id;
+//
+//    baseCrud.updateAndRespond(Model,id,params, req, res);
+//
+//};
 
 exports.destroy = function (req, res) {
 
@@ -142,8 +142,6 @@ exports.resetarSenha = function (req, res) {
             if(data){
 
                 var usuario = {};
-                //usuario.geradorSenha    = generatePassword(12, false);
-                //usuario.senha           = commons.toSha1(usuario.geradorSenha);
 
                 usuario.senha = data.senha;
 
@@ -172,53 +170,68 @@ exports.resetarSenha = function (req, res) {
 
 exports.confirmaPresenca = function (req, res) {
 
-    var dados = req.body;
-
-    Model
-        .findOne({'nome': dados.nome})
-        .exec(function(err, data) {
+    var params = req.body,
+        id = req.params.id;
 
 
-            if (err) throw err;
+    Model.findOne({'nome': params.nome}, function (err, evento) {
 
-            if (data) {
 
-                var evento = {};
+        if (err) {
 
-                evento.nome = dados.nome;
-                evento.descricao = dados.descricao;
-                evento.tipo = dados.tipo;
-                evento.faixa = dados.faixa;
-                evento.status = dados.status;
-                evento.dataEvento = dados.dataEvento;
-                evento.horaEvento = dados.horaEvento;
-                data.save();
 
+            log.logger.error({err: err, req: req });
+            res.status(500).send({error: "Erro ao atualizar registro. Um relatório de erro foi gerado."});
+            return;
+        }
+
+        if (!evento) {
+
+            res.status(404).send({error: "Registro não encontrado para atualizar."});
+            return;
+        }
+
+        //Utilizo o Underscore para atualizar todas as variaveis do obj com os parametros passados.
+        evento.nome = params.nome;
+        evento.descricao = params.descricao;
+        evento.tipo = params.tipo;
+        evento.faixa = params.faixa;
+        evento.status = params.status;
+        evento.dataEvento = params.dataEvento;
+        evento.horaEvento = params.horaEvento;
+
+        evento.save(function (err) {
+
+            if (!err) {
 
                 var emailOptions = {
                     from: 'brenuhfigueiredo@hotmail.com',
                     //to:         req.user.email,
                     to: 'veridiane.pedrosa@gmail.com',
+                    //to: 'alineninaszz@gmail.com',
                     subject: 'Dados do evento confirmado',
                     html: '<img src=\"' + conf.dominio + '/imagem/cabecEmail\" alt=\"EMBR\">' + '<br>' +
-                    'Nome: ' + data.nome + '<br>' +
-                    'Descrição: ' + data.descricao + '<br>' +
-                    'Tipo: ' + data.tipo + '<br>' +
-                    'Classificação: ' + data.faixa + '<br>' +
-                    'Status: ' + data.status + '<br>' +
-                    'Data do Evento: ' + data.dataEvento + '<br>' +
-                    'Hora do Evento: ' + data.horaEvento + '<br>'
+                    'Nome: ' + evento.nome + '<br>' +
+                    'Descrição: ' + evento.descricao + '<br>' +
+                    'Tipo: ' + evento.tipo + '<br>' +
+                    'Classificação: ' + evento.faixa + '<br>' +
+                    'Status: ' + evento.status + '<br>' +
+                    'Data do Evento: ' + evento.dataEvento + '<br>' +
+                    'Hora do Evento: ' + evento.horaEvento + '<br>'
 
 
                 };
                 processaEmail.sendMail(emailOptions);
 
-
                 res.senchaSubmitRes(true, 'Enviando email para o usuário!');
 
 
+            } else {
+                log.logger.error({err: err, req: req});
+                res.status(500).send({error: msgErro + err.message || ''});
             }
         });
 
+    });
 
 }

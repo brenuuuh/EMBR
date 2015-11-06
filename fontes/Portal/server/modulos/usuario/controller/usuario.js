@@ -14,11 +14,10 @@ exports.read = function (req, res) {
 
 exports.add = function (req, res) {
 
-
     var dados = req.body;
 
     Model
-        .findOne({"cpf": dados.cpf})
+        .findOne({"email": dados.email})
         .exec(function(err, usuario){
             if (!usuario) {
 
@@ -31,16 +30,15 @@ exports.add = function (req, res) {
                 item.dataInclusao = new Date();
                 item.dataAlteracao = null;
                 item.login = dados.email;
-                //item.geradorSenha    = generatePassword(12, false);
-                //item.senha           = commons.toSha1(dados.geradorSenha);
-                item.senha           = dados.senha;
+                item.geradorSenha    = generatePassword(12, false);
+                item.senha           = commons.toSha1(item.geradorSenha);
                 item.save(function (err) {
                     if (!err) {
 
                         var emailOptions = {
                             from: 'brenuhfigueiredo@hotmail.com',
-                            to:         item.email,
-                            //to: 'breno.ads@hotmail.com',
+                            //to:         item.email,
+                            to: 'veridiane.pedrosa@gmail.com',
                             subject: 'Dados para login no Sistema',
                             html: '<img src=\"' + conf.dominio + '/imagem/cabecEmail\" alt=\"EMBR\">' + '<br>' +
                             'Login: ' + item.login + '<br>' +
@@ -48,6 +46,9 @@ exports.add = function (req, res) {
                             //'<a href=' + conf.dominio + '>Clique aqui para acessar!</a>'
 
                         };
+
+                        console.log("login: "+ item.login);
+                        console.log("senha: "+ item.geradorSenha);
                         processaEmail.sendMail(emailOptions);
 
                         res.senchaRes(true, item);
@@ -65,7 +66,7 @@ exports.add = function (req, res) {
             else {
 
                 Model
-                    .findOne({"cpf": dados.cpf})
+                    .findOne({"email": dados.email})
                     .exec(function (err, usuario)
                     {
 
@@ -85,19 +86,15 @@ exports.add = function (req, res) {
                             item.dataInclusao = new Date();
                             item.dataAlteracao = null;
                             item.login = dados.email;
-                            //usuario.geradorSenha    = generatePassword(12, false);
-                            //usuario.senha           = commons.toSha1(usuario.geradorSenha);
-                            item.senha           = dados.senha;
-
-                            //console.log("Senha", item.geradorSenha);
-
+                            item.geradorSenha    = generatePassword(12, false);
+                            item.senha           = commons.toSha1(item.geradorSenha);
                             item.save(function (err) {
                                 if (!err) {
 
                                     var emailOptions = {
                                         from: 'brenuhfigueiredo@gmail.com',
-                                        to:   item.email,
-                                        //to: 'breno.ads@hotmail.com',
+                                        //to:   item.email,
+                                        to: 'veridiane.pedrosa@gmail.com',
                                         subject: 'Dados para login no Sistema',
                                         html: '<img src=\"' + conf.dominio + '/imagem/cabecEmail\" alt=\"EMBR\">' + '<br>' +
                                         'Login: ' + item.login + '<br>' +
@@ -105,6 +102,9 @@ exports.add = function (req, res) {
                                         //'<a href=' + conf.dominio + '>Clique aqui para acessar!</a>'
 
                                     };
+
+                                    console.log("login: "+ item.login);
+                                    console.log("senha: "+ item.geradorSenha);
                                     processaEmail.sendMail(emailOptions);
 
                                     res.senchaRes(true, item);
@@ -141,9 +141,9 @@ exports.novoUsuario = function (req,res){
                 item.dataInclusao = new Date();
                 item.dataAlteracao = null;
                 item.login = dados.email;
-                //item.geradorSenha    = generatePassword(12, false);
-                //item.senha           = commons.toSha1(dados.geradorSenha);
-                item.senha           = dados.senha;
+                item.geradorSenha    = generatePassword(12, false);
+                item.senha           = commons.toSha1(dados.geradorSenha);
+                //item.senha           = dados.senha;
                 item.save(function (err) {
                     if (!err) {
 
@@ -157,6 +157,9 @@ exports.novoUsuario = function (req,res){
                             //'<a href=' + conf.dominio + '>Clique aqui para acessar!</a>'
 
                         };
+
+                        console.log("login: "+ item.login);
+                        console.log("senha: "+ item.geradorSenha);
                         processaEmail.sendMail(emailOptions);
 
                         res.senchaRes(true, item);
@@ -194,9 +197,9 @@ exports.novoUsuario = function (req,res){
                             item.dataInclusao = new Date();
                             item.dataAlteracao = null;
                             item.login = dados.email;
-                            //usuario.geradorSenha    = generatePassword(12, false);
-                            //usuario.senha           = commons.toSha1(usuario.geradorSenha);
-                            item.senha           = dados.senha;
+                            item.geradorSenha    = generatePassword(12, false);
+                            item.senha           = commons.toSha1(usuario.geradorSenha);
+                            //item.senha           = dados.senha;
 
                             //console.log("Senha", item.geradorSenha);
 
@@ -214,6 +217,8 @@ exports.novoUsuario = function (req,res){
                                         //'<a href=' + conf.dominio + '>Clique aqui para acessar!</a>'
 
                                     };
+                                    console.log("login: "+ item.login);
+                                    console.log("senha: "+ item.geradorSenha);
                                     processaEmail.sendMail(emailOptions);
 
                                     res.senchaRes(true, item);
@@ -278,6 +283,7 @@ exports.destroy = function (req, res) {
 
 exports.alterarSenha = function (req, res) {
 
+
     var params = req.body;
 
     Model.findById(params._id, function (err, obj) {
@@ -287,7 +293,7 @@ exports.alterarSenha = function (req, res) {
             res.status(500).send({error: err.message});
             return;
         }
-        obj.senha = params.senha;
+        obj.senha = commons.toSha1(params.usuSen);
 
         //Atualiza a data.
         obj.dataAlteracao = new Date();
@@ -296,7 +302,7 @@ exports.alterarSenha = function (req, res) {
             if (!err) {
                 res.senchaSubmitRes(true, "Alterado com sucesso");
             } else {
-                log.logger.error({err: err });
+                log.logger.error({err: err});
                 res.senchaSubmitRes(false, err.message);
             }
         });
@@ -347,24 +353,27 @@ exports.resetarSenha = function (req, res) {
         if(data){
 
             var usuario = {};
-            //usuario.geradorSenha    = generatePassword(12, false);
-            //usuario.senha           = commons.toSha1(usuario.geradorSenha);
+            usuario.geradorSenha    = generatePassword(12, false);
+            usuario.senha           = commons.toSha1(usuario.geradorSenha);
 
-            usuario.senha = data.senha;
+            data.senha = usuario.senha;
+
 
             data.save();
 
             var emailOptions = {
                 from:       'brenuhfigueiredo@gmail.com',
                 //to:         data.email,
-                to: 'brenuhfigueiredo@gmail.com',
+                to: 'veridiane.pedrosa@gmail.com',
                 subject:    'Solicitação de mudança de senha.',
                 html:
                 '<img src=\"'+ conf.dominio + '/imagem/cabecEmail\" alt=\"EMBR\">'+'<br>' +
                 'Login: ' + data.login + '<br>' +
-                'Senha: '   + usuario.senha
+                'Senha: '   + usuario.geradorSenha
 
             };
+            console.log('Senha: '+ usuario.geradorSenha);
+
             processaEmail.sendMail(emailOptions);
 
             res.senchaSubmitRes(true, 'Em breve enviaremos o email com sua nova senha!')

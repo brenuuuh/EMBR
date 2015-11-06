@@ -66,22 +66,22 @@ Ext.define('Admin.view.eventos.Eventos', {
                     flex:1
                 },
                 {
-                        text: 'Tipo',
-                        xtype: 'widgetcolumn',
-                        dataIndex: 'tipo',
-                        flex: 1,
-                        widget:{
-                            xtype: 'combo',
-                            bind:{
-                                store:'{eventos}'
-                            },
-                            queryMode: 'local',
-                            valueField: 'tipo',
-                            displayField: 'tipo',
-                            editable:true
-                        }
+                    text: 'Tipo',
+                    xtype: 'widgetcolumn',
+                    dataIndex: 'tipo',
+                    flex: 1,
+                    widget:{
+                        xtype: 'combo',
+                        bind:{
+                            store:'{eventos}'
+                        },
+                        queryMode: 'local',
+                        valueField: 'tipo',
+                        displayField: 'tipo',
+                        editable:true
+                    }
 
-                    },
+                },
                 {
                     text: 'Classificação',
                     xtype: 'widgetcolumn',
@@ -101,10 +101,19 @@ Ext.define('Admin.view.eventos.Eventos', {
                 },
                 {
 
-                    text: 'Status',
+                    text: 'Presença ?',
+                    xtype: 'checkcolumn',
                     dataIndex: 'status',
-                    flex:1
+                    flex:1,
+                    stopSelection: false,
+                    defaultType: 'boolean',
+                    disabled: true
                 }
+                //{
+                //    text: 'Status',
+                //    dataIndex: 'status',
+                //    flex:1
+                //}
 
             ],
             dockedItems: [
@@ -145,6 +154,6 @@ Ext.define('Admin.view.eventos.Eventos', {
             ]
 
         }
-        ]
+    ]
 
 });

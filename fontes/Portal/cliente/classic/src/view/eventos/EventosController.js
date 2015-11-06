@@ -195,49 +195,7 @@ Ext.define('Admin.view.eventos.EventosController',{
 
     },
 
-OnClickDel: function (botao){
-    var grid = botao.up('grid'),
-    record = grid.getSelectionModel().getSelection()[0],
-    store = grid.getStore();
-
-
-if (record) {
-    Ext.MessageBox.show({
-        title: 'Deseja Excluír?',
-        msg: 'Tem certeza que deseja excluir este registro?',
-        buttons: Ext.MessageBox.YESNO,
-        scope: this,
-        fn: function (btn) {
-
-            if (btn === 'yes') {
-
-
-                Ext.Ajax.request({
-                    url: '/eventos/' + record.get('nome'),
-                    method: 'DELETE',
-
-                    success: function (response) {
-                        store.remove(record);
-                        Ext.Msg.alert('Salvo', 'Registro excluído com sucesso.');
-                    },
-                    failure: function (response) {
-                        Ext.Msg.alert('Erro ao excluir', JSON.parse(response.responseText).error);
-                    }
-                });
-
-
-            }
-        },
-        animateTarget: botao,
-        icon: Ext.MessageBox.QUESTION
-    });
-} else {
-    Ext.Msg.alert('Erro ao excluir', 'Favor Selecionar um Registro.');
-}
-
-},
-
-    OnConfirmaPresenca: function(botao) {
+    OnClickDel: function (botao){
         var grid = botao.up('grid'),
             record = grid.getSelectionModel().getSelection()[0],
             store = grid.getStore();
@@ -245,8 +203,8 @@ if (record) {
 
         if (record) {
             Ext.MessageBox.show({
-                title: 'Confirma presença?',
-                msg: 'Deseja confirmar sua presença nesse evento?',
+                title: 'Deseja Excluír?',
+                msg: 'Tem certeza que deseja excluir este registro?',
                 buttons: Ext.MessageBox.YESNO,
                 scope: this,
                 fn: function (btn) {
@@ -255,18 +213,15 @@ if (record) {
 
 
                         Ext.Ajax.request({
-                            url: '/listaeventos/' + record.get('_id'),
-                            method: 'PUT',
-                            params:{
-                                status: 'Presença Confirmada'
-                            },
+                            url: '/eventos/' + record.get('nome'),
+                            method: 'DELETE',
 
                             success: function (response) {
                                 store.remove(record);
-                                Ext.Msg.alert('Confirmado', 'Favor verificar seu email.');
+                                Ext.Msg.alert('Salvo', 'Registro excluído com sucesso.');
                             },
                             failure: function (response) {
-                                Ext.Msg.alert('Erro ao confirmar', JSON.parse(response.responseText).error);
+                                Ext.Msg.alert('Erro ao excluir', JSON.parse(response.responseText).error);
                             }
                         });
 
@@ -279,6 +234,7 @@ if (record) {
         } else {
             Ext.Msg.alert('Erro ao excluir', 'Favor Selecionar um Registro.');
         }
+
     }
 });
 
