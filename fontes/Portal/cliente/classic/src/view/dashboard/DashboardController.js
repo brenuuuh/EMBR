@@ -6,6 +6,9 @@ Ext.define('Admin.view.dashboard.DashboardController', {
         'Ext.util.TaskRunner'
     ],
 
+    onRender: function () {
+        //alert('render');
+    },
 
     clicarClick: function (button, e, eOpts) {
 
@@ -15,87 +18,138 @@ Ext.define('Admin.view.dashboard.DashboardController', {
 
 
     },
-    enviarEmailAlteracao: function (btn) {
+    gridDblClick: function (grid, record) {
+        this.showEdit(record);
 
-        var viewModel = this.getViewModel(),
-            vmData = viewModel.getData(),
-            me = this;
-        //    var box = Ext.MessageBox.wait('Enviando email..', 'Envio de email');
+    },
+    showEdit: function (record) {
+        var view = Ext.create(this.formClass),
+            form = view.down('form'),
+            self = this;
+
+        //Vincula o viewmodel atual como parent do viewmodel da window.
+        view.setViewModel(new Ext.app.ViewModel({
+            parent: this.getViewModel(),
+            formulas: self.formFormulas
+        }));
+
+        if (record) { //Edicao
+
+            view.setTitle((this.podeEditar ? 'Editando ' : 'Visualizando ') + this.formTitulo + ': ');
+
+            form.loadRecord(record);
+
+            self.depoisDeCarregarRecord && self.depoisDeCarregarRecord(record);
+
+            if (!this.podeEditar) {
+                //desabilita botao salvar.
+                view.query('button')[0].setVisible(false);
+                form.query('combobox').forEach(function (c) {
+                    c.setDisabled(true);
+                });
+                form.query('field').forEach(function (c) {
+                    try {
+                        c.setEditable(false);
+                    } catch (err) {
+                    }
+
+                });
+            }
+
+        } else {
+            view.setTitle('Novo ' + this.formTitulo + ': ');
+        }
+
+        if (this.antesShowEdit) {
+            this.antesShowEdit(form, record);
+        }
+
+        view.show();
+
+    },
+    gridDblClick: function (grid, record) {
+
+        var form = Ext.ComponentQuery.query('#formend')[0];
+        form.loadRecord(record);
+    },
+
+    EditarEnderecoUsuario: function (botao, e, eOpts) {
+
+        var grid = botao.up('grid'),
+            record = grid.getSelectionModel().getSelection()[0],
+            store = grid.getStore();
+
+        if (record) {
+            var edit = Ext.create('Admin.view.dashboard.EditarEndereco').show();
+
+            if (record) {
+                edit.down('form').loadRecord(record);
+            }
+        }else{
+            Ext.Msg.alert('Erro ao editar', 'Favor Selecionar um Registro.');
+        }
+
+
+    },
+    salvarAlteracao: function (btn) {
+
+        var win = btn.up('window'),
+            form = win.down('form'),
+            record = form.getRecord(),
+            grid = btn.up('grid');
+
+        if (form.getForm().isValid()) {
+            Ext.Ajax.request({
+                url: '/usuario/alteracao/' + record.get('_id'),
+                method: 'PUT',
+                params: form.getValues(),
+                success: function (result, request) {
+                    Ext.Msg.alert('Salvo', 'Registro salvo com sucesso.');
+                    Ext.ComponentQuery.query('#GridEndereco')[0].getStore().load();
+                    btn.up('window').close();
+
+
+                },
+                failure: function (result, request) {
+                    Ext.Msg.alert('Erro ao editar', 'Dados já existentes.');
+
+                }
+
+
+            });
+        }
+
+    },
+    iniciaEnd: function () {
+        // Atualiza os dados da Toolbar
+        var logradouro = this.lookupReference('logradouro');
+        var numero = this.lookupReference('numero');
+        var bairro = this.lookupReference('bairro');
+
+        var estado = this.lookupReference('estado');
+
+        var cep = this.lookupReference('cep');
+        var complemento = this.lookupReference('complemento');
 
 
         Ext.Ajax.request({
-            url: 'perfil/alteracao',
-            params: {
-                alteracao: vmData.alteracao,
-
-
-            },
-            timeout: 1000000,
-            method: 'POST',
-
+            url: '/userEnd',
+            method: 'GET',
             success: function (response, opts) {
-
                 var result = Ext.decode(response.responseText);
-                if (result.success === true) {
 
-                    Ext.Msg.alert('Email enviado com sucesso', result.message);
 
-                }
-                else {
-                    Ext.Msg.alert('Failed', result.message);
-                }
+                logradouro.setValue(result.logradouro);
+                numero.setValue(result.numero);
+                bairro.setValue(result.bairro);
+                var estcid =result.estado + " | " +result.cidade;
+                estado.setValue(estcid);
+                cep.setValue(result.cep);
+                complemento.setValue(result.complemento);
             },
             failure: function (response, opts) {
-                var result = Ext.decode(response.responseText);
-                Ext.Msg.alert('Failed');
-
             }
         });
 
-    },
-    onRefreshToggle: function (tool, e, owner) {
-        var me = this,
-            store = this.getViewModel().getStore('dashboardfulllinechartstore'),
-            items = Ext.Array.from(store && store.getData().items),
-            num_items = items.length;
-
-        if (tool.toggleValue) {
-            me.clearChartUpdates(owner);
-        } else {
-            if (num_items) {
-                me.chartTaskRunner = me.chartTaskRunner || Ext.create('Ext.util.TaskRunner');
-                me.chartTaskRunner.start({
-                    run: function () {
-                        this.last_x += this.last_x - this.second_last_x;
-                        var first = this.items[0].data;
-                        this.store.removeAt(0);
-                        this.store.add({xvalue: first.xvalue, y1value: first.y1value, y2value: first.y2value});
-                        this.count++;
-                    },
-                    store: store,
-                    count: 0,
-                    items: items,
-                    last_x: items[num_items - 1].data.xvalue,
-                    second_last_x: items[num_items - 2].data.xvalue,
-                    interval: 200
-                });
-            }
-        }
-
-        // change the toggle value
-        tool.toggleValue = !tool.toggleValue;
-    },
-
-    clearChartUpdates: function () {
-        this.chartTaskRunner = Ext.destroy(this.chartTaskRunner);
-    },
-
-    onDestroy: function () {
-        this.clearChartUpdates();
-        this.callParent();
-    },
-
-    onHideView: function () {
-        this.clearChartUpdates();
     }
 });

@@ -40,20 +40,23 @@ Ext.define('Admin.view.lista.ListaEventos', {
 
                     text: 'Nome',
                     dataIndex: 'nome',
-                    flex: 1
+                    flex: 1,
+                    editable:false
                 },
                 {
 
                     text: 'Descrição',
                     dataIndex: 'descricao',
-                    flex: 1
+                    flex: 1,
+                    editable:false
                 },
                 {
                     text: 'Data do Evento',
                     dataIndex: 'dataEvento',
                     xtype: 'datecolumn',
                     renderer: Ext.util.Format.dateRenderer('d/m/Y'),
-                    flex: 1
+                    flex: 1,
+                    editable:false
                 },
                 {
                     text: 'Hora do Evento',
@@ -73,8 +76,11 @@ Ext.define('Admin.view.lista.ListaEventos', {
                         queryMode: 'local',
                         valueField: 'tipo',
                         displayField: 'tipo',
-                        editable:true
-                    }
+                        editable: false,
+                        disabled: true
+                    },
+                    editable:false,
+                    disabled: true
 
                 },
                 {
@@ -90,13 +96,17 @@ Ext.define('Admin.view.lista.ListaEventos', {
                         queryMode: 'local',
                         valueField: 'faixa',
                         displayField: 'faixa',
-                        editable:true
-                    }
+                        editable: false,
+                        disabled: true
+
+                    },
+                    editable:false,
+                    disabled: true
 
                 },
                 {
 
-                    text: 'Presença ?',
+                    text: 'Confirmar Presença',
                     xtype: 'checkcolumn',
                     dataIndex: 'status',
                     flex:1,
@@ -118,7 +128,7 @@ Ext.define('Admin.view.lista.ListaEventos', {
                     displayInfo: true,
                     displayMsg: 'Mostrando {0} - {1} of {2}',
                     emptyMsg: "Nenhum registro."
-                },
+                }
 
                 //{
                 //    xtype: 'toolbar',

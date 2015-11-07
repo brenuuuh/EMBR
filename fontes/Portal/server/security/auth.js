@@ -119,41 +119,26 @@ exports.init = function (app) {
 
     });
 
-    //app.get('/userEmp', function (req, res) {
-    //
-    //
-    //    mongoose.model('empresa').findOne({'cnpjEmpresa': res.req.user.cnpj}).exec(function (err, empresa) {
-    //
-    //        req.user._doc['empresa'] = empresa.razaoEmpresa;
-    //        req.user._doc['Filiais'] = empresa.filiais;
-    //
-    //        res.send(req.user);
-    //
-    //    });
-    //});
-    //
+    app.get('/userEnd', function (req, res) {
 
-    //app.get('/userEnd', function (req, res) {
-    //
-    //
-    //    mongoose.model('empresa').findOne({'cnpjEmpresa': req.user.cnpj}).exec(function (err, empresa) {
-    //
-    //
-    //        req.user._doc['Logradouro'] = empresa.filiais[0].Logradouro;
-    //        req.user._doc['Numero'] = empresa.filiais[0].Numero;
-    //        req.user._doc['Cep'] = empresa.filiais[0].Cep;
-    //        req.user._doc['Complemento'] = empresa.filiais[0].Complemento;
-    //        req.user._doc['Bairro'] = empresa.filiais[0].Bairro;
-    //        req.user._doc['Estado'] = empresa.filiais[0].Estado;
-    //        req.user._doc['Cidade'] = empresa.filiais[0].Cidade;
-    //        res.send( req.user);
-    //
-    //    });
-    //
-    //
-    //
-    //
-    //});
+
+        mongoose.model('Usuario').findOne({'cpf': req.user.cpf}).exec(function (err, usuario) {
+
+
+            req.user._doc['Logradouro'] = usuario.Logradouro;
+            req.user._doc['Numero'] = usuario.Numero;
+            req.user._doc['Cep'] = usuario.Cep;
+            req.user._doc['Complemento'] = usuario.Complemento;
+            req.user._doc['Bairro'] = usuario.Bairro;
+            req.user._doc['Estado'] = usuario.Estado;
+            req.user._doc['Cidade'] = usuario.Cidade;
+            res.send( req.user);
+
+        });
+
+
+
+    });
 
     //app.get('/log/download', function (req, res) {
     //

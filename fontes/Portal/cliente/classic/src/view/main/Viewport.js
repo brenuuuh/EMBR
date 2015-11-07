@@ -49,6 +49,15 @@ Ext.define('Admin.view.main.Viewport', {
                 {
                     xtype: 'tbspacer',
                     flex: 1
+                },
+                {
+                    xtype: 'tbtext',
+                    text: 'Dados do Usuario: ',
+                    cls: 'top-user-name'
+                },
+                {
+                    xtype: 'displayfield',
+                    reference: 'nome'
                 }
 
             ]

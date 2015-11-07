@@ -5,6 +5,7 @@ var log = require('../../../utils/log');
 var commons = require('../../../utils/commons');
 var generatePassword    = require('password-generator');
 var processaEmail = require('../../../utils/email');
+var _ = require('underscore');
 var conf = require('../../../../conf/conf');
 
 exports.read = function (req, res) {
@@ -32,6 +33,13 @@ exports.add = function (req, res) {
                 item.login = dados.email;
                 item.geradorSenha    = generatePassword(12, false);
                 item.senha           = commons.toSha1(item.geradorSenha);
+                item.logradouro = dados.logradouro,
+                item.numero = dados.numero,
+                item.cep = dados.cep,
+                item.complemento = dados.complemento,
+                item.bairro = dados.bairro,
+                item.cidade = dados.cidade,
+                item.estado = dados.estado
                 item.save(function (err) {
                     if (!err) {
 
@@ -88,6 +96,13 @@ exports.add = function (req, res) {
                             item.login = dados.email;
                             item.geradorSenha    = generatePassword(12, false);
                             item.senha           = commons.toSha1(item.geradorSenha);
+                            item.logradouro = dados.logradouro,
+                            item.numero = dados.numero,
+                            item.cep = dados.cep,
+                            item.complemento = dados.complemento,
+                            item.bairro = dados.bairro,
+                            item.cidade = dados.cidade,
+                            item.estado = dados.estado
                             item.save(function (err) {
                                 if (!err) {
 
@@ -143,7 +158,13 @@ exports.novoUsuario = function (req,res){
                 item.login = dados.email;
                 item.geradorSenha    = generatePassword(12, false);
                 item.senha           = commons.toSha1(dados.geradorSenha);
-                //item.senha           = dados.senha;
+                item.logradouro = dados.logradouro,
+                item.numero = dados.numero,
+                item.cep = dados.cep,
+                item.complemento = dados.complemento,
+                item.bairro = dados.bairro,
+                item.cidade = dados.cidade,
+                item.estado = dados.estado
                 item.save(function (err) {
                     if (!err) {
 
@@ -199,10 +220,13 @@ exports.novoUsuario = function (req,res){
                             item.login = dados.email;
                             item.geradorSenha    = generatePassword(12, false);
                             item.senha           = commons.toSha1(usuario.geradorSenha);
-                            //item.senha           = dados.senha;
-
-                            //console.log("Senha", item.geradorSenha);
-
+                            item.logradouro = dados.logradouro,
+                            item.numero = dados.numero,
+                            item.cep = dados.cep,
+                            item.complemento = dados.complemento,
+                            item.bairro = dados.bairro,
+                            item.cidade = dados.cidade,
+                            item.estado = dados.estado
                             item.save(function (err) {
                                 if (!err) {
 
@@ -238,8 +262,9 @@ exports.novoUsuario = function (req,res){
 } ;
 
 exports.readByUserLogado = function (req, res) {
+    var dados = req.user;
 
-    baseCrud.readAndRespond(Model.find({'email': req.body.email}), Model.find({'email': req.body.email}), req, res);
+    baseCrud.readAndRespond(Model.findOne({'cpf': dados.cpf}), Model.findOne({'cpf': dados.cpf}), req, res);
 };
 
 
@@ -249,6 +274,54 @@ exports.update = function (req, res) {
         id = req.params.id;
 
     baseCrud.updateAndRespond(Model,id,params, req, res);
+
+};
+
+
+exports.alteraEnd = function (req, res) {
+
+    var params = req.body;
+    var id = req.params.id;
+
+    baseCrud.updateAndRespond(Model,id,params, req, res);
+
+    //Model.findOne({'cpf': req.user.cpf}, function (err, obj) {
+    //
+    //    if (err) {
+    //
+    //
+    //        log.logger.error({err: err, req: req});
+    //        res.status(500).send({error: "Erro ao atualizar registro. Um relatório de erro foi gerado."});
+    //        return;
+    //    }
+    //
+    //    var usuario = obj;
+    //
+    //
+    //    if (!usuario) {
+    //
+    //        res.status(404).send({error: "Registro não encontrado para atualizar."});
+    //        return;
+    //    }
+    //
+    //
+    //    //Utilizo o Underscore para atualizar todas as variaveis do obj com os parametros passados.
+    //    usuario = _.extend(usuario, params);
+    //
+    //    usuario.save(function (err) {
+    //
+    //        if (!err) {
+    //
+    //            res.senchaRes(true, obj);
+    //
+    //        } else {
+    //            log.logger.error({err: err, req: req});
+    //            res.status(500).send({error: msgErro + err.message || ''});
+    //        }
+    //    });
+    //
+    //});
+    //
 
 };
 

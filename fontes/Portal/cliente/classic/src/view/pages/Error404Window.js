@@ -11,7 +11,7 @@ Ext.define('Admin.view.pages.Error404Window', {
     autoShow: true,
     cls: 'error-page-container',
     closable: false,
-    title: 'Sencha',
+    title: 'Erro',
     titleAlign: 'center',
     maximized: true,
     modal: true,
@@ -41,7 +41,7 @@ Ext.define('Admin.view.pages.Error404Window', {
                 {
                     xtype: 'label',
                     cls: 'error-page-desc',
-                    html: '<div>Seems you\'ve hit a wall!</div><div>Try going back to our <a href="#dashboard"> Home page </a></div>'
+                    html: '<div>A página solicitada não existe!</div><div>Tente novamente ou volte para à <a href="#dashboard"> Página Inicial </a></div>'
                 },
                 {
                     xtype: 'tbspacer',

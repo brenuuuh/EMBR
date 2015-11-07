@@ -14,22 +14,22 @@ Ext.define('Admin.view.main.ViewportController', {
         ':node': 'onRouteChange'
     },
 
-    //atualizaNomeToolbar: function () {
-    //    // Atualiza os dados da Toolbar
-    //    var toolbar = this.lookupReference('RazaoEmpresa');
-    //
-    //    Ext.Ajax.request({
-    //        url: '/userEmp',
-    //        method: 'GET',
-    //        success: function (response, opts) {
-    //            var result = Ext.decode(response.responseText);
-    //            toolbar.setValue(result.empresa);
-    //        },
-    //        failure: function (response, opts) {
-    //        }
-    //    });
-    //
-    //},
+    atualizaNomeToolbar: function () {
+        // Atualiza os dados da Toolbar
+        var toolbar = this.lookupReference('nome');
+
+        Ext.Ajax.request({
+            url: '/userEnd',
+            method: 'GET',
+            success: function (response, opts) {
+                var result = Ext.decode(response.responseText);
+                toolbar.setValue(result.nome);
+            },
+            failure: function (response, opts) {
+            }
+        });
+
+    },
     mostraMenuCorreto: function (callback) {
         //debugger;
         // Executa um refresh na página atualizando o menu

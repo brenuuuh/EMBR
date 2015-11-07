@@ -17,8 +17,8 @@ Ext.define('Admin.view.authentication.Register', {
 
         {
             xtype: 'authdialog',
-            bodyPadding: '20 20',
-            width: 455,
+            bodyPadding: '10 10',
+            width: 650,
             reference : 'authDialog',
 
             defaultButton : 'submitButton',
@@ -29,7 +29,7 @@ Ext.define('Admin.view.authentication.Register', {
                 align: 'stretch'
             },
             defaults : {
-                margin: '10 0',
+                style:'margin-top: 10px',
                 selectOnFocus : true
             },
             items: [
@@ -42,13 +42,12 @@ Ext.define('Admin.view.authentication.Register', {
                     xtype: 'textfield',
                     itemId: 'nomeUsrReg',
                     cls: 'auth-textbox',
-                    height: 55,
+                    height: 20,
                     hideLabel: true,
                     allowBlank : false,
                     name: 'nome',
-                    emptyText: 'nome',
+                    emptyText: 'Nome',
                     bind: '{nome}',
-                    //plugins: 'textmask',
                     triggers: {
                         glyphed: {
                             cls: 'trigger-glyph-noop auth-email-trigger'
@@ -59,7 +58,7 @@ Ext.define('Admin.view.authentication.Register', {
                     xtype: 'textfield',
                     itemId: 'cpfUsrReg',
                     cls: 'auth-textbox',
-                    height: 55,
+                    height: 20,
                     hideLabel: true,
                     allowBlank : false,
                     name: 'cpf',
@@ -78,7 +77,7 @@ Ext.define('Admin.view.authentication.Register', {
                     itemId: 'dataNascUsr',
                     cls: 'auth-textbox',
                     type: 'date',
-                    height: 55,
+                    height: 20,
                     hideLabel: true,
                     allowBlank : false,
                     name: 'dataNasc',
@@ -95,7 +94,7 @@ Ext.define('Admin.view.authentication.Register', {
                     xtype: 'textfield',
                     cls: 'auth-textbox',
                     itemId: 'emailUsrReg',
-                    height: 55,
+                    height: 20,
                     hideLabel: true,
                     allowBlank : false,
                     name: 'email',
@@ -109,11 +108,124 @@ Ext.define('Admin.view.authentication.Register', {
                     }
                 },
                 {
+                    xtype: 'textfield',
+                    itemId: 'logradouro',
+                    cls: 'auth-textbox',
+                    height: 20,
+                    hideLabel: true,
+                    allowBlank : false,
+                    name: 'logradouro',
+                    emptyText: 'Rua, Avenida, Alameda',
+                    bind: '{logradouro}',
+                    //plugins: 'textmask',
+                    triggers: {
+                        glyphed: {
+                            cls: 'trigger-glyph-noop auth-email-trigger'
+                        }
+                    }
+                },
+                {
+                    xtype: 'textfield',
+                    itemId: 'numero',
+                    cls: 'auth-textbox',
+                    height: 20,
+                    hideLabel: true,
+                    allowBlank : false,
+                    name: 'numero',
+                    emptyText: 'Numero',
+                    bind: '{numero}',
+                    triggers: {
+                        glyphed: {
+                            cls: 'trigger-glyph-noop auth-email-trigger'
+                        }
+                    }
+                },
+                {
+                    xtype: 'textfield',
+                    itemId: 'cep',
+                    cls: 'auth-textbox',
+                    height: 20,
+                    hideLabel: true,
+                    allowBlank : false,
+                    name: 'cep',
+                    emptyText: 'Cep',
+                    bind: '{cep}',
+                    triggers: {
+                        glyphed: {
+                            cls: 'trigger-glyph-noop auth-email-trigger'
+                        }
+                    }
+                },
+                {
+                    xtype: 'textfield',
+                    itemId: 'complemento',
+                    cls: 'auth-textbox',
+                    height: 20,
+                    hideLabel: true,
+                    allowBlank : false,
+                    name: 'complemento',
+                    emptyText: 'Complemento',
+                    bind: '{complemento}',
+                    triggers: {
+                        glyphed: {
+                            cls: 'trigger-glyph-noop auth-email-trigger'
+                        }
+                    }
+                },
+                {
+                    xtype: 'textfield',
+                    itemId: 'bairro',
+                    cls: 'auth-textbox',
+                    height: 20,
+                    hideLabel: true,
+                    allowBlank : false,
+                    name: 'bairro',
+                    emptyText: 'Bairro',
+                    bind: '{bairro}',
+                    triggers: {
+                        glyphed: {
+                            cls: 'trigger-glyph-noop auth-email-trigger'
+                        }
+                    }
+                },
+                {
+                    xtype: 'textfield',
+                    itemId: 'estado',
+                    cls: 'auth-textbox',
+                    height: 20,
+                    hideLabel: true,
+                    allowBlank : false,
+                    name: 'estado',
+                    emptyText: 'Estado',
+                    bind: '{estado}',
+                    triggers: {
+                        glyphed: {
+                            cls: 'trigger-glyph-noop auth-email-trigger'
+                        }
+                    }
+                },
+                {
+                    xtype: 'textfield',
+                    itemId: 'cidade',
+                    cls: 'auth-textbox',
+                    height: 20,
+                    hideLabel: true,
+                    allowBlank : false,
+                    name: 'cidade',
+                    emptyText: 'Cidade',
+                    bind: '{cidade}',
+                    triggers: {
+                        glyphed: {
+                            cls: 'trigger-glyph-noop auth-email-trigger'
+                        }
+                    }
+                },
+                {
                     xtype: 'checkbox',
-                    flex: 1,
                     name: 'agrees',
+                    style: 'margin-top:20px;',
                     cls: 'form-panel-font-color rememberMeCheckbox',
-                    height: 32,
+                    height: 25,
                     bind: '{agrees}',
                     allowBlank : false,
                     boxLabel: 'Eu aceito os termos e condições de uso',

@@ -38,6 +38,13 @@ Ext.define('Admin.view.authentication.LoginModel', {
         cpf : '',
         email    : '',
         login: '',
+        cidade: '',
+        estado: '',
+        numero: '',
+        complemento: '',
+        bairro: '',
+        logradouro:'',
+        cep: '',
         persist: false,
         agrees : false
     }

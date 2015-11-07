@@ -1,75 +1,150 @@
-Ext.define('Admin.view.profile.Social', {
-    extend: 'Ext.panel.Panel',
-    xtype: 'profilesocialpanel',
-
-    requires: [
-        'Ext.button.Button',
-        'Ext.container.Container',
-        'Ext.layout.container.VBox'
-    ],
-
-    height: 300,
-    bodyPadding: 10,
-
-    layout: {
-        type: 'vbox',
-        align: 'middle'
-    },
-
-    cls: 'social-panel shadow-panel',
-
-    items: [
-        {
-            xtype: 'image',
-            cls: 'userProfilePic',
-            height: 120,
-            width: 120,
-            alt: 'profile-picture',
-            src: 'resources/images/user-profile/20.png'
-        },
-        {
-            xtype: 'component',
-            cls: 'userProfileName',
-            height: '',
-            html: 'Jessica Warren'
-        },
-        {
-            xtype: 'component',
-            cls: 'userProfileDesc',
-            html: 'CO-FOUNDER, CEO'
-        },
-        {
-            xtype: 'container',
-            layout: 'hbox',
-            defaults: {
-                xtype: 'button',
-                margin: 5
-            },
-            margin: 5,
-            items: [
-                {
-                    ui: 'blue',
-                    iconCls: 'x-fa fa-facebook'
-                },
-                {
-                    ui: 'soft-cyan',
-                    iconCls: 'x-fa fa-twitter'
-                },
-                {
-                    ui: 'soft-red',
-                    iconCls: 'x-fa fa-google-plus'
-                },
-                {
-                    ui: 'soft-purple',
-                    iconCls: 'x-fa fa-envelope'
-                }
-            ]
-        },
-        {
-            xtype: 'button',
-            scale: 'large',
-            width: 220,
-            text: 'Follow'
-        }
-    ]
-});
+//Ext.define('Admin.view.profile.Social', {
+//    extend: 'Ext.form.Panel',
+//    xtype: 'formend',
+//    style: 'width:  100%;height: 50,25%;',
+//
+//
+//    controller: 'dashboard',
+//
+//
+//    region: 'center',
+//    listeners: {
+//        afterrender: 'iniciaEnd'
+//
+//    },
+//
+//    items: [
+//        {
+//            region: 'center',
+//            xtype: 'panel',
+//
+//
+//            layout: {
+//
+//                type: 'hbox',
+//                align: 'stretch'
+//            },
+//
+//            defaults: {
+//                flex: 1
+//            },
+//
+//            items: [
+//
+//                {
+//                    xtype: 'fieldset',
+//                    width: 400,
+//                    height: 200,
+//                    style: 'border: 10px solid  transparent !important;',
+//                    items: [
+//                        {
+//
+//                            xtype: 'textfield',
+//                            fieldLabel: 'Logradouro',
+//                            name: 'Logradouro',
+//                            width: 350,
+//                            reference: 'logradouro',
+//                            style: 'margin-top:10%'
+//
+//                        },
+//                        {
+//                            xtype: 'textfield',
+//
+//                            fieldLabel: 'Número',
+//                            name: 'Numero',
+//                            reference: 'numero'
+//
+//
+//                        }
+//                    ]
+//
+//                },
+//                {
+//                    xtype: 'fieldset',
+//                    width: 400,
+//                    height: 200,
+//                    style: 'border: 10px solid  transparent !important;',
+//                    items: [
+//                        {
+//                            xtype: 'label',
+//                            cls: 'lock-screen-top-label',
+//                            text: 'Endereço',
+//                            style: 'font-size: 200.5%; margin-left: 20%; '
+//
+//                        },
+//                        {
+//                            xtype: 'textfield',
+//                            fieldLabel: 'CEP',
+//                            name: 'Cep',
+//                            reference: 'cep',
+//                            style: 'margin-top:5%'
+//                        },
+//                        {
+//                            xtype: 'textfield',
+//                            name: 'Complemento',
+//                            fieldLabel: 'Complemento',
+//                            reference: 'complemento'
+//
+//
+//                        },
+//
+//                        {
+//                            xtype: 'button',
+//                            style: 'margin-top: 1%;margin-left: 7%;',
+//
+//                            text: ' Salvar Alterações',
+//
+//                            ui: 'soft-blue',
+//
+//                            listeners: {
+//
+//                                click: 'salvarAlteracao'
+//                            }
+//
+//                        }
+//                    ]
+//
+//                },
+//                {
+//                    xtype: 'fieldset',
+//                    width: 400,
+//                    height: 200,
+//
+//                    style: 'border: 10px solid  transparent !important;',
+//                    items: [
+//                        {
+//                            xtype: 'textfield',
+//                            name: 'Bairro',
+//                            fieldLabel: 'Bairro',
+//                            reference: 'bairro',
+//                            style: 'margin-top:10%'
+//
+//                        },
+//                        {
+//                            xtype: 'textfield',
+//                            name: 'Estado'+'|'+'Cidade',
+//                            fieldLabel: 'Estado/Cidade',
+//                            reference: 'estado',
+//                            width: 350
+//
+//
+//
+//                        }
+//
+//                    ]
+//
+//                }
+//            ]
+//
+//
+//        }
+//
+//
+//    ]
+//
+//
+//
+//
+//
+//
+//});

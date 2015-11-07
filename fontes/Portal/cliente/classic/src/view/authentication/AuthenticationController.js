@@ -53,8 +53,14 @@ Ext.define('Admin.view.authentication.AuthenticationController', {
                 nome: vmData.nome,
                 dataNasc: vmData.dataNasc,
                 dataAlteracao: vmData.dataAlteracao,
-                dataInclusao: vmData.dataInclusao
-
+                dataInclusao: vmData.dataInclusao,
+                cidade: vmData.cidade,
+                estado: vmData.estado,
+                logradouro: vmData.logradouro,
+                bairro: vmData.bairro,
+                numero: vmData.numero,
+                cep: vmData.cep,
+                complemento: vmData.complemento
             },
             success: function (response) {
                 Ext.Msg.alert('Salvo', 'Registro salvo com sucesso.');
