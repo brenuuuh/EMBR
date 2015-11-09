@@ -6,8 +6,6 @@
 //=================================================================================================
 
 var autoIncrement = require("mongoose-auto-increment");
-//var commons       = require('../../../utils/commons');
-
 
 module.exports = function(mongoose) {
 
@@ -23,11 +21,17 @@ module.exports = function(mongoose) {
 
         faixa: {type: String, required: true, default: 'Livre'},
 
-        status: {type: Boolean},
+        status: {type: String, required: true, default: 'Confirmado'},
 
-        dataEvento: {type: Date},
+        dataEvento: {type: Date, required: true},
 
-        horaEvento: {type: String}
+        horaEvento: {type: String, required: true},
+
+        cidade: {type: String, required: true},
+
+        estado: {type: String, required: true},
+
+        local: {type: String, required: true}
 
     });
 

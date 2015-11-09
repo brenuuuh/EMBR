@@ -79,9 +79,7 @@ Ext.define('Admin.view.lista.ListaEventos', {
                         editable: false,
                         disabled: true
                     },
-                    editable:false,
-                    disabled: true
-
+                    editable:false
                 },
                 {
                     text: 'Classificação',
@@ -100,21 +98,22 @@ Ext.define('Admin.view.lista.ListaEventos', {
                         disabled: true
 
                     },
-                    editable:false,
-                    disabled: true
-
+                    editable:false
                 },
                 {
-
-                    text: 'Confirmar Presença',
-                    xtype: 'checkcolumn',
-                    dataIndex: 'status',
-                    flex:1,
-                    stopSelection: false,
-                    listeners: {
-                        checkchange : 'onCheckSta'
-                    },
-                    defaultType: 'boolean'
+                    text: 'Cidade',
+                    dataIndex: 'cidade',
+                    flex:1
+                },
+                {
+                    text: 'Estado',
+                    dataIndex: 'estado',
+                    flex:1
+                },
+                {
+                    text: 'Local',
+                    dataIndex: 'local',
+                    flex:1
                 }
 
             ],
@@ -128,23 +127,21 @@ Ext.define('Admin.view.lista.ListaEventos', {
                     displayInfo: true,
                     displayMsg: 'Mostrando {0} - {1} of {2}',
                     emptyMsg: "Nenhum registro."
-                }
+                },
+                {
+                    xtype: 'toolbar',
+                    dock: 'top',
+                    items: [
+                        {
+                            xtype: 'button',
+                            text: 'Confirmar Presença',
+                            ui: 'soft-blue',
+                            handler: 'OnConfirmaPresenca'
+                        }
 
-                //{
-                //    xtype: 'toolbar',
-                //    dock: 'top',
-                //    items: [
-                //        {
-                //            xtype: 'button',
-                //            text: 'Confirmar Presença',
-                //            ui: 'soft-blue',
-                //            handler: 'OnConfirmaPresenca'
-                //
-                //        }
-                //
-                //
-                //    ]
-                //}
+
+                    ]
+                }
             ]
 
         }

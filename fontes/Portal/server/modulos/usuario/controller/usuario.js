@@ -44,9 +44,9 @@ exports.add = function (req, res) {
                     if (!err) {
 
                         var emailOptions = {
-                            from: 'brenuhfigueiredo@hotmail.com',
-                            //to:         item.email,
-                            to: 'veridiane.pedrosa@gmail.com',
+                            from: 'embr@embr.com.br',
+                            to:         item.email,
+                            //to: 'veridiane.pedrosa@gmail.com',
                             subject: 'Dados para login no Sistema',
                             html: '<img src=\"' + conf.dominio + '/imagem/cabecEmail\" alt=\"EMBR\">' + '<br>' +
                             'Login: ' + item.login + '<br>' +
@@ -107,9 +107,9 @@ exports.add = function (req, res) {
                                 if (!err) {
 
                                     var emailOptions = {
-                                        from: 'brenuhfigueiredo@gmail.com',
-                                        //to:   item.email,
-                                        to: 'veridiane.pedrosa@gmail.com',
+                                        from: 'embr@embr.com.br',
+                                        to:   item.email,
+                                        //to: 'veridiane.pedrosa@gmail.com',
                                         subject: 'Dados para login no Sistema',
                                         html: '<img src=\"' + conf.dominio + '/imagem/cabecEmail\" alt=\"EMBR\">' + '<br>' +
                                         'Login: ' + item.login + '<br>' +

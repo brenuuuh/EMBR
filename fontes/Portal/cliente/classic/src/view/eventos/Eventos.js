@@ -100,20 +100,25 @@ Ext.define('Admin.view.eventos.Eventos', {
 
                 },
                 {
-
-                    text: 'Presença ?',
-                    xtype: 'checkcolumn',
+                    text: 'Cidade',
+                    dataIndex: 'cidade',
+                    flex:1
+                },
+                {
+                    text: 'Estado',
+                    dataIndex: 'estado',
+                    flex:1
+                },
+                {
+                    text: 'Local',
+                    dataIndex: 'local',
+                    flex:1
+                },
+                {
+                    text: 'Status',
                     dataIndex: 'status',
-                    flex:1,
-                    stopSelection: false,
-                    defaultType: 'boolean',
-                    disabled: true
+                    flex:1
                 }
-                //{
-                //    text: 'Status',
-                //    dataIndex: 'status',
-                //    flex:1
-                //}
 
             ],
             dockedItems: [

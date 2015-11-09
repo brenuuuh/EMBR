@@ -9,6 +9,7 @@ var commons = require('../../../utils/commons');
 var generatePassword    = require('password-generator');
 var processaEmail = require('../../../utils/email');
 var conf = require('../../../../conf/conf');
+var dateFormat = require('dateformat');
 
 exports.read = function (req, res) {
 
@@ -31,16 +32,6 @@ exports.cadastrarEvento = function (req, res) {
     });
 
 };
-
-
-//exports.update = function (req, res) {
-//
-//    var params = req.body,
-//        id = req.params.id;
-//
-//    baseCrud.updateAndRespond(Model,id,params, req, res);
-//
-//};
 
 exports.destroy = function (req, res) {
 
@@ -68,104 +59,6 @@ exports.destroy = function (req, res) {
         });
 
     });
-};
-
-
-exports.alterarSenha = function (req, res) {
-
-    var params = req.body;
-
-    Model.findById(params._id, function (err, obj) {
-
-        if (err) {
-            log.logger.error({err: err});
-            res.status(500).send({error: err.message});
-            return;
-        }
-        obj.senha = params.senha;
-
-        //Atualiza a data.
-        obj.dataAlteracao = new Date();
-
-        obj.save(function (err) {
-            if (!err) {
-                res.senchaSubmitRes(true, "Alterado com sucesso");
-            } else {
-                log.logger.error({err: err });
-                res.senchaSubmitRes(false, err.message);
-            }
-        });
-
-    });
-};
-
-
-exports.alterarPerfil = function (req, res) {
-
-    var params = req.body;
-
-    Model.findById(params._id, function (err, obj) {
-
-        if (err) {
-            log.logger.error({err: err});
-            res.status(500).send({error: err.message});
-            return;
-        }
-
-        //Atualiza a data.
-        obj.perfis = params.perfis.split(',');
-        obj.dataAlteracao = new Date();
-
-        obj.save(function (err) {
-            if (!err) {
-                res.senchaSubmitRes(true, "Alterado com sucesso");
-            } else {
-                log.logger.error({err: err });
-                res.senchaSubmitRes(false, err.message);
-            }
-        });
-
-    });
-};
-
-exports.resetarSenha = function (req, res) {
-
-    var dados = req.body;
-
-    Model
-        .findOne({'email': dados.email})
-        .exec(function(err, data){
-
-
-            if(err) throw err;
-
-            if(data){
-
-                var usuario = {};
-
-                usuario.senha = data.senha;
-
-                data.save();
-
-                var emailOptions = {
-                    from:       'brenuhfigueiredo@gmail.com',
-                    //to:         data.email,
-                    to: 'brenuhfigueiredo@gmail.com',
-                    subject:    'Solicitação de mudança de senha.',
-                    html:
-                    '<img src=\"'+ conf.dominio + '/imagem/cabecEmail\" alt=\"EMBR\">'+'<br>' +
-                    'Login: ' + data.login + '<br>' +
-                    'Senha: '   + usuario.senha
-
-                };
-                processaEmail.sendMail(emailOptions);
-
-                res.senchaSubmitRes(true, 'Em breve enviaremos o email com sua nova senha!')
-            }else{
-                res.senchaSubmitRes('','Email não Cadastrado!');
-            }
-        });
-
 };
 
 exports.confirmaPresenca = function (req, res) {
@@ -196,19 +89,21 @@ exports.confirmaPresenca = function (req, res) {
         evento.descricao = params.descricao;
         evento.tipo = params.tipo;
         evento.faixa = params.faixa;
-        evento.status = params.status;
-        evento.dataEvento = params.dataEvento;
+        data = params.dataEvento.toLocaleString('%d-%m-%Y');
+        evento.dataEvento = data;
         evento.horaEvento = params.horaEvento;
+        evento.cidade = params.cidade;
+        evento.estado = params.estado;
+        evento.local = params.local;
 
         evento.save(function (err) {
 
             if (!err) {
 
                 var emailOptions = {
-                    from: 'brenuhfigueiredo@hotmail.com',
-                    //to:         req.user.email,
-                    to: 'veridiane.pedrosa@gmail.com',
-                    //to: 'alineninaszz@gmail.com',
+                    from: 'embr@embr.com.br',
+                    to:         req.user.email,
+                    //to: 'veridiane.pedrosa@gmail.com',
                     subject: 'Dados do evento confirmado',
                     html: '<img src=\"' + conf.dominio + '/imagem/cabecEmail\" alt=\"EMBR\">' + '<br>' +
                     'Nome: ' + evento.nome + '<br>' +
@@ -217,7 +112,10 @@ exports.confirmaPresenca = function (req, res) {
                     'Classificação: ' + evento.faixa + '<br>' +
                     'Status: ' + evento.status + '<br>' +
                     'Data do Evento: ' + evento.dataEvento + '<br>' +
-                    'Hora do Evento: ' + evento.horaEvento + '<br>'
+                    'Hora do Evento: ' + evento.horaEvento + '<br>'+
+                    'Cidade: ' + evento.cidade + '<br>'+
+                    'Estado: ' + evento.estado + '<br>'+
+                    'Local do Evento: ' + evento.local + '<br>'
 
 
                 };
@@ -234,4 +132,4 @@ exports.confirmaPresenca = function (req, res) {
 
     });
 
-}
+};

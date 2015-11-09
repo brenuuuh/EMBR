@@ -11,7 +11,15 @@ var log           = require('./log');
 var transporter;
 
 exports.sendMail = function (mailOptions){
-    transporter = nodemailer.createTransport(smtpTransport(conf.smtp));
+    transporter = nodemailer.createTransport(
+        {
+            service:'Gmail',
+            auth: {
+                user: 'embrbh@gmail.com',
+                pass: 'embr2015'
+            }
+        }
+    );
     transporter.sendMail(mailOptions);
 
 };

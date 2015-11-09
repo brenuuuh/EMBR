@@ -52,7 +52,7 @@ Ext.define('Admin.view.main.Viewport', {
                 },
                 {
                     xtype: 'tbtext',
-                    text: 'Dados do Usuario: ',
+                    text: 'Bem vindo: ',
                     cls: 'top-user-name'
                 },
                 {

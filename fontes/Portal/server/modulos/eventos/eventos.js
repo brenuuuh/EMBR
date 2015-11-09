@@ -3,7 +3,7 @@
  */
 //=================================================================================================
 // Modulo Eventos
-// Controla o usuario e seus perfis.
+// .
 //=================================================================================================
 
 var modelLoader = require('../../utils/modelLoader');
@@ -25,9 +25,6 @@ exports.init = function(app){
     //carrega rotas
     var evento = require('./routes/eventos');
     app.use('/eventos', evento);
-
-
-
 
 };
 

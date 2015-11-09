@@ -5,21 +5,13 @@
 
 
 var development = {
-    dominio: '127.0.0.1:3000', //A aplicacao necessita saber qual dominio esta rodando, ex: Enviar emails com links para o app
-    porta: 3000, //Porta do servidor
+    dominio: '127.0.0.1:9000', //A aplicacao necessita saber qual dominio esta rodando, ex: Enviar emails com links para o app
+    porta: 9000, //Porta do servidor
     ipmongo: 'localhost', //'192.168.100.247', // Ip do server MONGO
     nomedbmongo: 'embr', //Nome da base de dados
     instancias: 1, //Quantidade de instancias da aplicacao 0 = automatico
     loglevel: 'debug', //fatal, error, warn, info, debug, trace
-    env: global.process.env.NODE_ENV || 'dev',
-    smtp: {
-        host: "smtp.sendgrid.net",
-        port: 25,
-        auth: {
-            user: "igordiasth",
-            pass: "Avanco123"
-        }
-    }
+    env: global.process.env.NODE_ENV || 'dev'
 };
 
 var production = {
