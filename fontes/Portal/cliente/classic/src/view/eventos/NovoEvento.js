@@ -62,6 +62,9 @@ Ext.define("Admin.view.eventos.NovoEvento", {
                     type: 'time',
                     emptyText: 'Hora do Evento',
                     name: 'horaEvento',
+                    format: 'H:i',
+                    altFormats:'H:i',
+                    increment: 30,
                     allowBlank : false
                 },
                 {

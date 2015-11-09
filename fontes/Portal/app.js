@@ -17,7 +17,6 @@ var compression     = require('compression');
 
 
 //Modulos Proprios
-var shared          = require('./server/modulos/shared/shared');
 var pessoa          = require('./server/modulos/pessoa/pessoa');
 var usuario         = require('./server/modulos/usuario/usuario');
 var log             = require('./server/utils/log');
@@ -83,7 +82,6 @@ sencha.init(app);
 log.init(app);
 usuario.init(app);
 pessoa.init(app);
-shared.init(app);
 evento.init(app);
 //empresa.init(app);
 //produto.init(app);

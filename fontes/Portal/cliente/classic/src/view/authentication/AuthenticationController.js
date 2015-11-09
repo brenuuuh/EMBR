@@ -19,7 +19,7 @@ Ext.define('Admin.view.authentication.AuthenticationController', {
                 senha: vmData.password
             },
             success: function (response) {
-                me.redirectTo("dashboard", true);
+                me.redirectTo("home", true);
             },
             failure: function (response) {
                 Ext.Msg.alert('Acesso Negado', 'Acesso Negado');

@@ -89,13 +89,12 @@ exports.confirmaPresenca = function (req, res) {
         evento.descricao = params.descricao;
         evento.tipo = params.tipo;
         evento.faixa = params.faixa;
-        data = params.dataEvento.toLocaleString('%d-%m-%Y');
-        evento.dataEvento = data;
+        evento.dataEvento = params.dataEvento;
         evento.horaEvento = params.horaEvento;
         evento.cidade = params.cidade;
         evento.estado = params.estado;
         evento.local = params.local;
-
+        console.log("Dados "+ evento);
         evento.save(function (err) {
 
             if (!err) {
@@ -111,7 +110,7 @@ exports.confirmaPresenca = function (req, res) {
                     'Tipo: ' + evento.tipo + '<br>' +
                     'Classificação: ' + evento.faixa + '<br>' +
                     'Status: ' + evento.status + '<br>' +
-                    'Data do Evento: ' + evento.dataEvento + '<br>' +
+                    'Data do Evento: ' + dateFormat(evento.dataEvento, "dd/mm/yyyy") + '<br>' +
                     'Hora do Evento: ' + evento.horaEvento + '<br>'+
                     'Cidade: ' + evento.cidade + '<br>'+
                     'Estado: ' + evento.estado + '<br>'+
