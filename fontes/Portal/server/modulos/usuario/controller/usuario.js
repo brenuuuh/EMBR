@@ -50,7 +50,7 @@ exports.add = function (req, res) {
                             subject: 'Dados para login no Sistema',
                             html: '<img src=\"' + conf.dominio + '/imagem/cabecEmail\" alt=\"EMBR\">' + '<br>' +
                             'Login: ' + item.login + '<br>' +
-                            'Senha: ' + item.senha + '<br>'
+                            'Senha: ' + item.geradorSenha + '<br>'
                             //'<a href=' + conf.dominio + '>Clique aqui para acessar!</a>'
 
                         };
@@ -113,7 +113,7 @@ exports.add = function (req, res) {
                                         subject: 'Dados para login no Sistema',
                                         html: '<img src=\"' + conf.dominio + '/imagem/cabecEmail\" alt=\"EMBR\">' + '<br>' +
                                         'Login: ' + item.login + '<br>' +
-                                        'Senha: ' + item.senha + '<br>'
+                                        'Senha: ' + item.geradorSenha + '<br>'
                                         //'<a href=' + conf.dominio + '>Clique aqui para acessar!</a>'
 
                                     };
@@ -174,7 +174,7 @@ exports.novoUsuario = function (req,res){
                             subject: 'Dados para login no Sistema',
                             html: '<img src=\"' + conf.dominio + '/imagem/cabecEmail\" alt=\"EMBR\">' + '<br>' +
                             'Login: ' + item.login + '<br>' +
-                            'Senha: ' + item.senha + '<br>'
+                            'Senha: ' + item.geradorSenha + '<br>'
                             //'<a href=' + conf.dominio + '>Clique aqui para acessar!</a>'
 
                         };
@@ -237,7 +237,7 @@ exports.novoUsuario = function (req,res){
                                         subject: 'Dados para login no Sistema',
                                         html: '<img src=\"' + conf.dominio + '/imagem/cabecEmail\" alt=\"EMBR\">' + '<br>' +
                                         'Login: ' + item.login + '<br>' +
-                                        'Senha: ' + item.senha + '<br>'
+                                        'Senha: ' + item.geradorSenha + '<br>'
                                         //'<a href=' + conf.dominio + '>Clique aqui para acessar!</a>'
 
                                     };
@@ -284,44 +284,6 @@ exports.alteraEnd = function (req, res) {
     var id = req.params.id;
 
     baseCrud.updateAndRespond(Model,id,params, req, res);
-
-    //Model.findOne({'cpf': req.user.cpf}, function (err, obj) {
-    //
-    //    if (err) {
-    //
-    //
-    //        log.logger.error({err: err, req: req});
-    //        res.status(500).send({error: "Erro ao atualizar registro. Um relatório de erro foi gerado."});
-    //        return;
-    //    }
-    //
-    //    var usuario = obj;
-    //
-    //
-    //    if (!usuario) {
-    //
-    //        res.status(404).send({error: "Registro não encontrado para atualizar."});
-    //        return;
-    //    }
-    //
-    //
-    //    //Utilizo o Underscore para atualizar todas as variaveis do obj com os parametros passados.
-    //    usuario = _.extend(usuario, params);
-    //
-    //    usuario.save(function (err) {
-    //
-    //        if (!err) {
-    //
-    //            res.senchaRes(true, obj);
-    //
-    //        } else {
-    //            log.logger.error({err: err, req: req});
-    //            res.status(500).send({error: msgErro + err.message || ''});
-    //        }
-    //    });
-    //
-    //});
-    //
 
 };
 
@@ -436,8 +398,8 @@ exports.resetarSenha = function (req, res) {
 
             var emailOptions = {
                 from:       'brenuhfigueiredo@gmail.com',
-                //to:         data.email,
-                to: 'veridiane.pedrosa@gmail.com',
+                to:         data.email,
+                //to: 'veridiane.pedrosa@gmail.com',
                 subject:    'Solicitação de mudança de senha.',
                 html:
                 '<img src=\"'+ conf.dominio + '/imagem/cabecEmail\" alt=\"EMBR\">'+'<br>' +

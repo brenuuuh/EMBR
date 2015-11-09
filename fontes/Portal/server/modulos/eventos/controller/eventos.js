@@ -33,6 +33,14 @@ exports.cadastrarEvento = function (req, res) {
 
 };
 
+exports.update = function (req, res) {
+
+    var params = req.body,
+        id = req.params.id;
+
+    baseCrud.updateAndRespond(Model,id,params, req, res);
+
+};
 exports.destroy = function (req, res) {
 
     var params = req.params;

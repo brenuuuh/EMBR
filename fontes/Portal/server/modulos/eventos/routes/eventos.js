@@ -9,4 +9,5 @@ router.get('/', controller.read);
 router.post('/confirma', controller.confirmaPresenca);
 router.post('/novo', controller.cadastrarEvento);
 router.delete('/:nome', controller.destroy);
+router.put('/:id', controller.update);
 module.exports = router;

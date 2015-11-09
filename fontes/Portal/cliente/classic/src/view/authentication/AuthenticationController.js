@@ -63,7 +63,9 @@ Ext.define('Admin.view.authentication.AuthenticationController', {
                 complemento: vmData.complemento
             },
             success: function (response) {
-                Ext.Msg.alert('Salvo', 'Registro salvo com sucesso.');
+                var result = Ext.decode(response.responseText);
+
+                Ext.Msg.alert('Cadastro efetuado com sucesso!', 'Favor conferir seus dados para acesso no email: ' + result.data.email);
             },
             failure: function (response) {
 
@@ -80,11 +82,11 @@ Ext.define('Admin.view.authentication.AuthenticationController', {
     },
 
     onResetClick: function (button, e, eOpts) {
-//debugger;
+
         var win     = button.up('window'), //Pegamos a janela que está acima do botao que foi clicado.
             form    = win.down('form'), //Pegamos o form desta janela.
             values  = form.getValues(); //Valores atuais no formulario.
-//debugger;
+
         Ext.Ajax.request({
             url: 'usuario/resetPasswd',
             method: 'POST',
@@ -103,7 +105,7 @@ Ext.define('Admin.view.authentication.AuthenticationController', {
 
                 }
                 else {
-                    Ext.Msg.alert('Falha', 'E-mail não cadastrado.');
+                    Ext.Msg.alert('Falha', 'E-mail não consta na base de dados.');
                 }
             },
             failure: function (response, opts) {
