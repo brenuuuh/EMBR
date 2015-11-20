@@ -7,7 +7,8 @@ Ext.define('Admin.view.authentication.Register', {
         'Ext.form.Label',
         'Ext.form.field.Text',
         'Ext.form.field.Checkbox',
-        'Ext.button.Button'
+        'Ext.button.Button',
+        'Admin.util.TextMaskPlugin'
     ],
 
     title: 'Cadastro de Usuário',
@@ -59,13 +60,24 @@ Ext.define('Admin.view.authentication.Register', {
                     itemId: 'cpfUsrReg',
                     cls: 'auth-textbox',
                     height: 20,
+                    minLength: 11,
+                    maxLength: 11,
                     hideLabel: true,
                     allowBlank : false,
                     name: 'cpf',
-                    emptyText: 'CPF',
+                    emptyText: 'Cpf',
                     bind: '{cpf}',
-                    minLength:11,
-                    maxLength:11,
+                    plugins: 'textmask',
+                    mask: '999.999.999-99',
+                    validator: function(value) {
+
+                        if(value) {
+                            this.setValue(("00000000000" + value).slice(-11));
+                        }
+
+                        return true;
+
+                    },
                     triggers: {
                         glyphed: {
                             cls: 'trigger-glyph-noop auth-email-trigger'
@@ -83,7 +95,8 @@ Ext.define('Admin.view.authentication.Register', {
                     name: 'dataNasc',
                     emptyText: 'Data de Nascimento',
                     bind: '{dataNasc}',
-                    //plugins: 'textmask',
+                    format :'d/m/Y',
+                    altFormats:'d,m,Y|d.m.Y',
                     triggers: {
                         glyphed: {
                             cls: 'trigger-glyph-noop auth-email-trigger'
@@ -117,7 +130,6 @@ Ext.define('Admin.view.authentication.Register', {
                     name: 'logradouro',
                     emptyText: 'Rua, Avenida, Alameda',
                     bind: '{logradouro}',
-                    //plugins: 'textmask',
                     triggers: {
                         glyphed: {
                             cls: 'trigger-glyph-noop auth-email-trigger'
@@ -145,11 +157,15 @@ Ext.define('Admin.view.authentication.Register', {
                     itemId: 'cep',
                     cls: 'auth-textbox',
                     height: 20,
+                    minLength: 8,
+                    maxLength: 8,
                     hideLabel: true,
                     allowBlank : false,
                     name: 'cep',
-                    emptyText: 'Cep',
+                    emptyText:'Cep',
                     bind: '{cep}',
+                    plugins: 'textmask',
+                    mask:'99.999-999',
                     triggers: {
                         glyphed: {
                             cls: 'trigger-glyph-noop auth-email-trigger'

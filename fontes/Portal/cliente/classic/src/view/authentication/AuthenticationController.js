@@ -42,26 +42,12 @@ Ext.define('Admin.view.authentication.AuthenticationController', {
 
         var viewModel = this.getViewModel(),
             vmData = viewModel.getData(),
-            me = this;
+            me = this,
+            form = button.up('form');
         Ext.Ajax.request({
             url: '/usuario',
             method: 'POST',
-            params: {
-                cpf: vmData.cpf,
-                login: vmData.email,
-                email: vmData.email,
-                nome: vmData.nome,
-                dataNasc: vmData.dataNasc,
-                dataAlteracao: vmData.dataAlteracao,
-                dataInclusao: vmData.dataInclusao,
-                cidade: vmData.cidade,
-                estado: vmData.estado,
-                logradouro: vmData.logradouro,
-                bairro: vmData.bairro,
-                numero: vmData.numero,
-                cep: vmData.cep,
-                complemento: vmData.complemento
-            },
+            params: form.getValues(),
             success: function (response) {
                 var result = Ext.decode(response.responseText);
 
