@@ -11,7 +11,7 @@ Ext.define("Admin.view.usuarios.NovoUsuario", {
     title: 'Cadastro de novo usuário',
     autoShow: true,
     width: 500,
-    height: 600,
+    height: 750,
     modal: true,
 
     items: [
@@ -23,7 +23,7 @@ Ext.define("Admin.view.usuarios.NovoUsuario", {
                     xtype: 'textfield',
                     style: 'height: 5.25%; width: 65.25%;margin-left: 15%;margin-top: 5%;',
                     itemId: 'nome',
-                    height: 55,
+                    height: 25,
                     hideLabel: true,
                     allowBlank : false,
                     name: 'nome',
@@ -34,7 +34,7 @@ Ext.define("Admin.view.usuarios.NovoUsuario", {
                     xtype: 'textfield',
                     style: 'height: 5.25%; width: 65.25%;margin-left: 15%;margin-top: 5%;',
                     itemId: 'email',
-                    height: 55,
+                    height: 25,
                     hideLabel: true,
                     allowBlank : false,
                     name: 'email',
@@ -45,34 +45,109 @@ Ext.define("Admin.view.usuarios.NovoUsuario", {
                     xtype: 'textfield',
                     style: 'height: 5.25%; width: 65.25%;margin-left: 15%;margin-top: 5%;',
                     itemId: 'cpf',
-                    height: 55,
+                    height: 25,
                     hideLabel: true,
                     allowBlank : false,
                     name: 'cpf',
-                    emptyText: '999.999.99-99'
-                },
-                {
-                    xtype: 'textfield',
-                    style: 'height: 5.25%; width: 65.25%;margin-left: 15%;',
-                    cls: 'auth-textbox',
-                    height: 55,
-                    hideLabel: true,
-                    emptyText: 'Senha',
-                    inputType: 'password',
-                    name: 'senha',
-                    allowBlank : false
+                    emptyText: '999.999.99-99',
+                    plugins: 'textmask',
+                    mask: '999.999.999-99',
+                    validator: function(value) {
 
+                        if(value) {
+                            this.setValue(("00000000000" + value).slice(-11));
+                        }
+
+                        return true;
+
+                    }
                 },
                 {
                     xtype: 'datefield',
                     style: 'height: 5.25%; width: 65.25%;margin-left: 15%;margin-top: 5%;',
                     itemId: 'dataNasc',
                     type: 'date',
-                    height: 55,
+                    height: 25,
                     hideLabel: true,
                     allowBlank : false,
                     name: 'dataNasc',
-                    emptyText: 'dataNasc'
+                    emptyText: 'dataNasc',
+                    format :'d/m/Y',
+                    altFormats:'d,m,Y|d.m.Y'
+                },
+                {
+                    xtype: 'textfield',
+                    style: 'height: 5.25%; width: 65.25%;margin-left: 15%;margin-top: 5%;',
+                    itemId: 'logradouro',
+                    height: 25,
+                    hideLabel: true,
+                    allowBlank : false,
+                    name: 'logradouro',
+                    emptyText: 'Rua, Avenida, Alameda'
+                },
+                {
+                    xtype: 'textfield',
+                    style: 'height: 5.25%; width: 65.25%;margin-left: 15%;margin-top: 5%;',
+                    itemId: 'numero',
+                    height: 25,
+                    hideLabel: true,
+                    allowBlank : false,
+                    name: 'numero',
+                    emptyText: 'Numero'
+                },
+                {
+                    xtype: 'textfield',
+                    style: 'height: 5.25%; width: 65.25%;margin-left: 15%;margin-top: 5%;',
+                    itemId: 'cep',
+                    height: 25,
+                    minLength: 8,
+                    maxLength: 8,
+                    hideLabel: true,
+                    allowBlank : false,
+                    name: 'cep',
+                    emptyText:'Cep',
+                    plugins: 'textmask',
+                    mask:'99.999-999'
+                },
+                {
+                    xtype: 'textfield',
+                    style: 'height: 5.25%; width: 65.25%;margin-left: 15%;margin-top: 5%;',
+                    itemId: 'complemento',
+                    height: 25,
+                    hideLabel: true,
+                    allowBlank : false,
+                    name: 'complemento',
+                    emptyText: 'Complemento'
+                },
+                {
+                    xtype: 'textfield',
+                    style: 'height: 5.25%; width: 65.25%;margin-left: 15%;margin-top: 5%;',
+                    itemId: 'bairro',
+                    height: 25,
+                    hideLabel: true,
+                    allowBlank : false,
+                    name: 'bairro',
+                    emptyText: 'Bairro'
+                },
+                {
+                    xtype: 'textfield',
+                    style: 'height: 5.25%; width: 65.25%;margin-left: 15%;margin-top: 5%;',
+                    itemId: 'estado',
+                    height: 25,
+                    hideLabel: true,
+                    allowBlank : false,
+                    name: 'estado',
+                    emptyText: 'Estado'
+                },
+                {
+                    xtype: 'textfield',
+                    style: 'height: 5.25%; width: 65.25%;margin-left: 15%;margin-top: 5%;',
+                    itemId: 'cidade',
+                    height: 25,
+                    hideLabel: true,
+                    allowBlank : false,
+                    name: 'cidade',
+                    emptyText: 'Cidade'
                 },
                 {
                     xtype: 'button',

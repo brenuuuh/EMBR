@@ -6,27 +6,46 @@ Ext.define('Admin.view.usuarios.UsuarioController', {
     alias: 'controller.usuarios',
 
     onCheckAdm: function(check, rowIdx, checked){
-
+debugger;
         var record = check.up('grid').getStore().getAt(rowIdx);
 
 
+        if(checked === true) {
 
-        Ext.Ajax.request({
-            url: '/usuario/' + record.get('_id'),
-            method: 'PUT',
-            params: {
-                admin: checked
-            },
-            success: function (response) {
-                var result = Ext.decode(response.responseText);
-                console.log(result)
-            },
-            failure: function (response) {
-                var result = Ext.decode(response.responseText);
-                console.log(result)
-            }
-        });
+            Ext.Ajax.request({
+                url: '/usuario/' + record.get('_id'),
+                method: 'PUT',
+                params: {
+                    tipo: 1
+                },
+                success: function (response) {
+                    var result = Ext.decode(response.responseText);
+                    console.log(result)
+                },
+                failure: function (response) {
+                    var result = Ext.decode(response.responseText);
+                    console.log(result)
+                }
+            });
 
+        }
+        else{
+            Ext.Ajax.request({
+                url: '/usuario/' + record.get('_id'),
+                method: 'PUT',
+                params: {
+                    tipo: 2
+                },
+                success: function (response) {
+                    var result = Ext.decode(response.responseText);
+                    console.log(result)
+                },
+                failure: function (response) {
+                    var result = Ext.decode(response.responseText);
+                    console.log(result)
+                }
+            });
+        }
 
     },
     onClickNovoUsuario: function (button, e, eOpts) {

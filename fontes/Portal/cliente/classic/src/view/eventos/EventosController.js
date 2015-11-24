@@ -53,7 +53,7 @@ Ext.define('Admin.view.eventos.EventosController',{
     },
     OnClickRemove : function(botao) {
 
-        debugger;
+        //debugger;
 
         var grid = botao.up('grid');
 

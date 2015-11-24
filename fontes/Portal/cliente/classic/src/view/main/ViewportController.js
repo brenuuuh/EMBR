@@ -127,6 +127,26 @@ Ext.define('Admin.view.main.ViewportController', {
 
                     lastView = mainLayout.getActiveItem();
 
+                    if (hashTag === 'eventos') {
+                        Ext.suspendLayouts();
+                        mainLayout.setActiveItem(mainCard.add(Ext.create('Admin.view.eventos.Eventos', {
+                            hideMode: 'offsets',
+                            routeId: 'eventos'
+                        })));
+                        Ext.resumeLayouts(true);
+                        return;
+                    }
+
+                    if (hashTag === 'usuarios') {
+                        Ext.suspendLayouts();
+                        mainLayout.setActiveItem(mainCard.add(Ext.create('Admin.view.usuarios.Usuario', {
+                            hideMode: 'offsets',
+                            routeId: 'usuarios'
+                        })));
+                        Ext.resumeLayouts(true);
+                        return;
+                    }
+
                     if (!existingItem) {
                         newView = Ext.create('Admin.view.' + (view || 'pages.Error404Window'), {
                             hideMode: 'offsets',
@@ -243,7 +263,7 @@ Ext.define('Admin.view.main.ViewportController', {
     onMainViewRender: function () {
 
         if (!window.location.hash) {
-            this.redirectTo("dashboard");
+            this.redirectTo("home");
         }
 
     },
