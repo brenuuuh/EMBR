@@ -6,7 +6,7 @@ Ext.define('Admin.view.usuarios.UsuarioController', {
     alias: 'controller.usuarios',
 
     onCheckAdm: function(check, rowIdx, checked){
-debugger;
+
         var record = check.up('grid').getStore().getAt(rowIdx);
 
 
@@ -85,32 +85,6 @@ debugger;
                 }
             });
         }
-    },
-    onTipoSelect: function (combo) {
-        //Fazer o q tem q fazer.
-        var record = combo.getWidgetRecord();
-
-
-
-
-        Ext.Ajax.request({
-            url: '/usuario/' + record.get('_id'),
-            method: 'PUT',
-            params: {
-                tipo: combo.getSelection().id
-            },
-            success: function (response) {
-                var result = Ext.decode(response.responseText);
-                console.log(result)
-            },
-            failure: function (response) {
-                var result = Ext.decode(response.responseText);
-                console.log(result)
-            }
-        });
-
-
     }
-
 
 });

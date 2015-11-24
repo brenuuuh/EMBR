@@ -45,13 +45,14 @@ Ext.define("Admin.view.eventos.NovoEvento", {
                     xtype: 'datefield',
                     style: 'height: 5.25%; width: 65.25%;margin-left: 15%;',
                     itemId: 'dataEvento',
+                    type: 'date',
                     height: 50,
                     hideLabel: true,
-                    type: 'date',
-                    renderer: Ext.util.Format.dateRenderer('d/m/Y'),
-                    emptyText: 'Data do Evento',
+                    allowBlank : false,
                     name: 'dataEvento',
-                    allowBlank : false
+                    emptyText: 'Data do Evento',
+                    format :'d/m/Y'
+                    //altFormats:'d,m,Y|d.m.Y'
                 },
                 {
                     xtype: 'timefield',

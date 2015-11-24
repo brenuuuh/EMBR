@@ -72,7 +72,7 @@ module.exports = function(mongoose) {
     }
 
     //auto increment
-    Model.plugin(autoIncrement.plugin, { model: 'Pessoa', field: 'sequencial',  startAt: 1 });
+    Model.plugin(autoIncrement.plugin, { model: 'Usuario', field: 'sequencial',  startAt: 1 });
 
     //Impede que a senha seja serializada
     Model.methods.toJSON = function() {
