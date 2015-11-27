@@ -74,7 +74,6 @@ Ext.define('Admin.view.dashboard.DashboardController', {
     },
 
     AlterarSenhaUsuario: function (botao) {
-debugger;
 
         var grid = botao.up('grid'),
             record = grid.getSelectionModel().getSelection()[0],
