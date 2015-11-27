@@ -35,7 +35,7 @@ if (cluster.isMaster && conf.env === 'dev') {
 
 function inicializa() {
 
-    var debug = require('debug')('SuperAvanco');
+    var debug = require('debug')('EMBR');
     var app = require('../app');
 
     app.set('port', conf.porta || 9000);

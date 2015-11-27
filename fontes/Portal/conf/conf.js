@@ -14,4 +14,4 @@ var development = {
     env: global.process.env.NODE_ENV || 'dev'
 };
 
-exports = module.exports = global.process.env.NODE_ENV === 'dev'
+exports = module.exports = global.process.env.NODE_ENV === 'dev' ? development : development;

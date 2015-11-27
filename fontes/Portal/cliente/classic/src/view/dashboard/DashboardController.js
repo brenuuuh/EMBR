@@ -73,6 +73,27 @@ Ext.define('Admin.view.dashboard.DashboardController', {
         form.loadRecord(record);
     },
 
+    AlterarSenhaUsuario: function (botao) {
+debugger;
+
+        var grid = botao.up('grid'),
+            record = grid.getSelectionModel().getSelection()[0],
+            store = grid.getStore();
+
+        if (record) {
+        var view = Ext.create('Admin.view.usuarios.UsuarioSenhaForm'),
+            form = view.down('form');
+
+        view.setTitle('Alterando senha de ' + record.get('email'));
+
+        form.loadRecord(record);
+
+        view.show();
+    }
+        else{
+        }
+    },
+
     EditarEnderecoUsuario: function (botao, e, eOpts) {
 
         var grid = botao.up('grid'),

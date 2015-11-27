@@ -90,6 +90,12 @@ Ext.define('Admin.view.dashboard.GridEnd', {
                             text: 'Alterar dados',
                             ui: 'soft-blue',
                             handler: 'EditarEnderecoUsuario'
+                        },
+                        {
+                            xtype: 'button',
+                            text: 'Alterar Senha',
+                            ui: 'soft-blue',
+                            handler: 'AlterarSenhaUsuario'
                         }
                     ]
                 }
