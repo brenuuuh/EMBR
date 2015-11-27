@@ -14,23 +14,4 @@ var development = {
     env: global.process.env.NODE_ENV || 'dev'
 };
 
-var production = {
-    dominio: '127.0.0.1',
-    porta: 7000, //Deve estar rodando como root para setar portas menores que 1024
-    instancias: 0, //Automatico
-    ipmongo: '192.168.0.247',
-    nomedbmongo: 'padrao',
-    loglevel: 'error',
-    env: global.process.env.NODE_ENV || 'prod',
-    smtp: {
-        host: "smtp.gmail.com",
-        port: 25,
-        auth: {
-            user: "igordiasth",
-            pass: "Avanco123"
-        }
-    }
-};
-
-
-exports = module.exports = global.process.env.NODE_ENV === 'dev' ? development : production;
+exports = module.exports = global.process.env.NODE_ENV === 'dev'

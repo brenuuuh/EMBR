@@ -48,7 +48,12 @@
     .password-trigger,
     .auth-email-trigger,
     .auth-password-trigger,
-    .auth-envelope-trigger{
+    .auth-envelope-trigger,
+    .auth-calendar-trigger,
+    .auth-birthday-trigger,
+    .auth-localization-trigger,
+    .auth-whatsapp-trigger,
+    .auth-streetview-trigger {
         &:before{
             top: 10px;
             left:-18px;
@@ -67,6 +72,21 @@
         &.auth-envelope-trigger:before{
             content: "\f0e0";
         }
+        &.auth-calendar-trigger:before{
+            content: "\f073";
+        }
+        &.auth-birthday-trigger:before{
+	    content: "\f1fd";
+	}
+	&.auth-localization-trigger:before{
+	    content: "\f041";
+	}
+	&.auth-whatsapp-trigger:before{
+	    content: "\f17a";
+	}
+	&.auth-streetview-trigger:before{
+	    content: "\f21d";
+	}
     }
     .seperator{
         text-align: center;

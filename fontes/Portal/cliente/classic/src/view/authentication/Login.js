@@ -106,6 +106,23 @@ Ext.define('Admin.view.authentication.Login', {
                 {
                     xtype: 'button',
                     scale: 'large',
+                    ui: 'soft-blue',
+                    iconAlign: 'right',
+                    iconCls: 'x-fa fa-facebook',
+                    text: 'Entrar com Facebook',
+                    listeners: {
+                        click: 'onFaceBookLogin'
+                    }
+                    
+                },
+                {
+                    xtype: 'box',
+                    html: '<div class="outer-div"><div class="seperator">OU</div></div>',
+                    margin: '10 0'
+                },
+                {
+                    xtype: 'button',
+                    scale: 'large',
                     ui: 'gray',
                     iconAlign: 'right',
                     iconCls: 'x-fa fa-user-plus',

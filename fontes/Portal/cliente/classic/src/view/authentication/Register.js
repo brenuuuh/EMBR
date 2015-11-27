@@ -49,6 +49,7 @@ Ext.define('Admin.view.authentication.Register', {
                     name: 'nome',
                     emptyText: 'Nome',
                     bind: '{nome}',
+                    maskRe: /[A-Z,a-z]/,
                     triggers: {
                         glyphed: {
                             cls: 'trigger-glyph-noop auth-email-trigger'
@@ -99,7 +100,7 @@ Ext.define('Admin.view.authentication.Register', {
                     altFormats:'d,m,Y|d.m.Y',
                     triggers: {
                         glyphed: {
-                            cls: 'trigger-glyph-noop auth-email-trigger'
+                            cls: 'trigger-glyph-noop auth-birthday-trigger'
                         }
                     }
                 },
@@ -130,9 +131,10 @@ Ext.define('Admin.view.authentication.Register', {
                     name: 'logradouro',
                     emptyText: 'Rua, Avenida, Alameda',
                     bind: '{logradouro}',
+                    maskRe: /[A-Z,a-z]/,
                     triggers: {
                         glyphed: {
-                            cls: 'trigger-glyph-noop auth-email-trigger'
+                            cls: 'trigger-glyph-noop auth-streetview-trigger'
                         }
                     }
                 },
@@ -146,9 +148,10 @@ Ext.define('Admin.view.authentication.Register', {
                     name: 'numero',
                     emptyText: 'Numero',
                     bind: '{numero}',
+                    maskRe: /[0-9]/,
                     triggers: {
                         glyphed: {
-                            cls: 'trigger-glyph-noop auth-email-trigger'
+                            cls: 'trigger-glyph-noop auth-streetview-trigger'
                         }
                     }
                 },
@@ -166,9 +169,10 @@ Ext.define('Admin.view.authentication.Register', {
                     bind: '{cep}',
                     plugins: 'textmask',
                     mask:'99.999-999',
+                    maskRe: /[0-9]/,
                     triggers: {
                         glyphed: {
-                            cls: 'trigger-glyph-noop auth-email-trigger'
+                            cls: 'trigger-glyph-noop auth-streetview-trigger'
                         }
                     }
                 },
@@ -184,7 +188,7 @@ Ext.define('Admin.view.authentication.Register', {
                     bind: '{complemento}',
                     triggers: {
                         glyphed: {
-                            cls: 'trigger-glyph-noop auth-email-trigger'
+                            cls: 'trigger-glyph-noop auth-streetview-trigger'
                         }
                     }
                 },
@@ -198,9 +202,10 @@ Ext.define('Admin.view.authentication.Register', {
                     name: 'bairro',
                     emptyText: 'Bairro',
                     bind: '{bairro}',
+                    maskRe: /[A-Z,a-z]/,
                     triggers: {
                         glyphed: {
-                            cls: 'trigger-glyph-noop auth-email-trigger'
+                            cls: 'trigger-glyph-noop auth-streetview-trigger'
                         }
                     }
                 },
@@ -213,10 +218,12 @@ Ext.define('Admin.view.authentication.Register', {
                     allowBlank : false,
                     name: 'estado',
                     emptyText: 'Estado',
+                    maskRe: /[A-Z,a-z]/,
+                    minLength: 2,
                     bind: '{estado}',
                     triggers: {
                         glyphed: {
-                            cls: 'trigger-glyph-noop auth-email-trigger'
+                            cls: 'trigger-glyph-noop auth-streetview-trigger'
                         }
                     }
                 },
@@ -230,9 +237,11 @@ Ext.define('Admin.view.authentication.Register', {
                     name: 'cidade',
                     emptyText: 'Cidade',
                     bind: '{cidade}',
+                    maskRe: /[A-Z,a-z]/,
+                    minLength: 2,
                     triggers: {
                         glyphed: {
-                            cls: 'trigger-glyph-noop auth-email-trigger'
+                            cls: 'trigger-glyph-noop auth-streetview-trigger'
                         }
                     }
                 },

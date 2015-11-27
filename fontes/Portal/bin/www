@@ -5,7 +5,7 @@ var conf = require('../conf/conf');
 console.log('Inicializando Aplicação modo: ' + conf.env);
 
 
-if (cluster.isMaster && conf.env === 'prod') {
+if (cluster.isMaster && conf.env === 'dev') {
 
     var numCPUs = conf.instancias;
 
@@ -38,7 +38,7 @@ function inicializa() {
     var debug = require('debug')('SuperAvanco');
     var app = require('../app');
 
-    app.set('port', conf.porta || 3000);
+    app.set('port', conf.porta || 9000);
 
     var server = app.listen(app.get('port'), function () {
         debug('Express server listening on port ' + server.address().port);

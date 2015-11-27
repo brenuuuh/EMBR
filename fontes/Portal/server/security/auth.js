@@ -9,17 +9,17 @@ exports.init = function (app) {
         mongoose = require('mongoose'),
         Usuario = mongoose.model('Usuario'),
         path = require('path'),
-        AES = require('../utils/AES');
-
+        AES = require('../utils/AES'),
+        FacebookStrategy = require('passport-facebook').Strategy,
+        FACEBOOK_APP_ID = '634704503336176',
+        FACEBOOK_APP_SECRET = '7c2786cea26b425c5a0b49e1c9dd0ba4';
     //===================================================================================================
     //Urls Liberadas
 
     var whitelist = [
-        {method: 'POST', path: '/saida'},
-        {method: 'POST', path: '/reducaoz'},
-        {method: 'GET', path: '/empresa/insere'},
         {method: 'POST', path: '/usuario'},
-        {method: 'POST', path: '/usuario/resetPasswd'}
+        {method: 'POST', path: '/usuario/resetPasswd'},
+        {method: 'GET', path: '/auth/facebook'}
     ];
 
     //===================================================================================================
@@ -68,6 +68,19 @@ exports.init = function (app) {
 
 
     });
+    
+    passport.use(new FacebookStrategy({
+    
+            clientID: FACEBOOK_APP_ID,
+            clientSecret: FACEBOOK_APP_SECRET,
+            callbackURL: 'http://localhost:9000/auth/facebook/callback'
+        },
+        function(accessToken, refreshToken, profile, done){
+            process.nextTick(function(){
+                return done(null, profile);
+                });
+          }      
+    ));
 
     app.use(passport.initialize());
     app.use(passport.session());
@@ -90,6 +103,17 @@ exports.init = function (app) {
             // `req.user` contains the authenticated user.
             res.send('true');
         }
+    );
+    
+    app.get('/auth/facebook',
+        passport.authenticate('facebook', { scope: 'email'}
+        ));
+        
+    app.get('/auth/facebook/callback',
+        passport.authenticate('facebook', {
+            successRedirect: '/home',
+            failureRedirect: '/'
+       })
     );
 
     //Logout

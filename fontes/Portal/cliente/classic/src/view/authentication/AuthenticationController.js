@@ -3,7 +3,18 @@ Ext.define('Admin.view.authentication.AuthenticationController', {
     alias: 'controller.authentication',
 
     //TODO: implement central Facebook OATH handling here
-
+    onFaceBookLogin: function(button,e){
+      Ext.Ajax.request({
+         url: '/auth/facebook',
+         success: function (response){
+          Ext.Msg.alert('Em manutenção', 'Acesso em manutenção');         
+          this.redirecTo("home", true);
+         },
+         failure: function (response){
+         Ext.Msg.alert('Em manutenção', 'Acesso em manutenção');
+         }
+      });
+    },
 
     onLoginButton: function (button, e, eOpts) {
 
@@ -59,6 +70,7 @@ Ext.define('Admin.view.authentication.AuthenticationController', {
 
                 if (objRes.tipo == 0) {
                     Ext.Msg.alert('Usuário já cadastrado', 'Caso esqueceu sua senha, favor entrar em esqueceu sua senha.');
+                    me.redirectTo("authentication.login");
                 } else {
                     Ext.Msg.alert('Erro ao cadastrar', 'Favor verificar os dados informados.');
 

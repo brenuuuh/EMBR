@@ -36,7 +36,7 @@ Ext.define('Admin.view.main.Viewport', {
                     xtype: 'component',
                     reference: 'senchaLogo',
                     cls: 'sencha-logo',
-                    html: '<div class="main-logo"><img src="resources/images/sencha-icon.png">EMBR</div>',
+                    html: '<div class="main-logo" style="margin-left: -10%;text-align: center;background-color:#080808; font-family: initial; font-size: 24px;">EMBR</div>',
                     width: 250
                 },
                 {
@@ -48,12 +48,14 @@ Ext.define('Admin.view.main.Viewport', {
                 },
                 {
                     xtype: 'tbspacer',
-                    flex: 1
+                    flex: 1,
+//                    style: 'background-color:#484848;'
                 },
                 {
                     xtype: 'tbtext',
                     text: 'Bem vindo: ',
-                    cls: 'top-user-name'
+                    cls: 'top-user-name',
+//                    style: 'color:#484848;'
                 },
                 {
                     xtype: 'displayfield',
