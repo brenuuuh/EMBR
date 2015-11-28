@@ -9,7 +9,7 @@ Ext.define('Admin.view.profile.ShareUpdate', {
 
     cls: 'share-panel shadow-panel',
     region: 'center',
-    style: 'width:  31.25%;height: 80,25%; margin-left: 30% ',
+    style: 'width:  51.25%;height: 80,25%; margin-left: 30% ',
 
     items: [
 
@@ -17,7 +17,7 @@ Ext.define('Admin.view.profile.ShareUpdate', {
             xtype: 'label',
             cls: 'lock-screen-top-label',
             text: 'Fale Conosco',
-            style: 'font-size: 170.5%; margin-left: 35%;'
+            style: 'font-size: 170.5%; margin-left: 32%;margin-top:2%;'
 
         },
 
@@ -26,7 +26,7 @@ Ext.define('Admin.view.profile.ShareUpdate', {
             emptyText: 'Duvida / Reclamação',
             name: 'tipo',
             bind: '{tipo}',
-            style: 'height: 5.25% ;width: 47.25%;margin-left: 27%;',
+            style: 'height: 5.25% ;width: 47.25%;margin-left: 27%;margin-top:5%;',
             store: new Ext.data.Store({
                 data: [
                     [1, 'Duvida'],
@@ -44,26 +44,14 @@ Ext.define('Admin.view.profile.ShareUpdate', {
         },
 
         {
-            xtype: 'combobox',
+            xtype: 'textfield',
+            cls: 'auth-textbox',
+            style: 'height: 5.25% ;width: 47.25%;margin-left: 27%;',
+            hideLabel: true,
+            allowBlank: true,
             emptyText: 'Evento',
             name: 'evento',
-            bind: '{evento}',
-            style: 'height: 5.25% ;width: 47.25%;margin-left: 27%;',
-            store: new Ext.data.Store({
-                data: [
-                    [1, 'Evento1'],
-                    [2, 'Evento2']
-                ],
-                id: 0,
-                fields: ['value', 'text']
-            }),
-
-            valueField: 'value',
-            displayField: 'text',
-            triggerAction: 'all',
-            editable: false
-            //hideLabel: true,
-            //allowBlank: true,
+            bind: '{evento}'
 
         },
 

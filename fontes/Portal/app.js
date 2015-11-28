@@ -17,14 +17,11 @@ var compression     = require('compression');
 
 
 //Modulos Proprios
-var pessoa          = require('./server/modulos/pessoa/pessoa');
 var usuario         = require('./server/modulos/usuario/usuario');
 var log             = require('./server/utils/log');
 var conf            = require('./conf/conf');
 var sencha          = require('./server/utils/senchaRes');
 var evento         = require('./server/modulos/eventos/eventos');
-//var produto         = require('./server/modulos/produto/produto');
-//var vendedor        = require('./server/modulos/vendedor/vendedor');
 //=================================================================================================
 
 var app = express();
@@ -81,11 +78,7 @@ app.use(session({
 sencha.init(app);
 log.init(app);
 usuario.init(app);
-pessoa.init(app);
 evento.init(app);
-//empresa.init(app);
-//produto.init(app);
-//vendedor.init(app);
 //=================================================================================================
 
 module.exports = app;

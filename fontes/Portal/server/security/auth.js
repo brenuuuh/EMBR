@@ -164,29 +164,6 @@ exports.init = function (app) {
 
     });
 
-    //app.get('/log/download', function (req, res) {
-    //
-    //
-    //    mongoose.model('produto').findOne({'cnpjEmpresa': req.user.cnpj}).exec(function (err, empresa) {
-    //
-    //        if(!empresa){
-    //            res.send({});
-    //        }else {
-    //
-    //
-    //            req.user._doc['logDown'] = empresa.produtos[0].logDown;
-    //            res.send(req.user);
-    //        }
-    //    });
-    //
-    //
-    //
-    //
-    //});
-
-
-
-
     /**
      * Utilizando apikey agora.
      * @param req
