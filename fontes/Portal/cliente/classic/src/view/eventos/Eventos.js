@@ -57,7 +57,8 @@ Ext.define('Admin.view.eventos.Eventos', {
                     text: 'Data do Evento',
                     dataIndex: 'dataEvento',
                     xtype: 'datecolumn',
-                    renderer: Ext.util.Format.dateRenderer('d/m/Y'),
+                    format :'d/m/Y',
+                    altFormats:'d,m,Y|d.m.Y',
                     flex: 1
                 },
                 {
