@@ -21,7 +21,7 @@ Ext.define('Admin.view.eventos.EventosController',{
 
     },
     cadastrarEvento: function (btn, e, eOpts) {
-debugger;
+    
         var me = this;
 
         var form = btn.up('form');
