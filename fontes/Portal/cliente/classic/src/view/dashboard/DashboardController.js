@@ -90,6 +90,7 @@ Ext.define('Admin.view.dashboard.DashboardController', {
         view.show();
     }
         else{
+            Ext.Msg.alert('Erro ao alterar', 'Favor selecionar um registro');
         }
     },
 
