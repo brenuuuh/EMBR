@@ -23,7 +23,7 @@ exports.enviarFaleConosco = function (req, res) {
             from: user.email,
             to: 'administrativo@embr-bh.xyz',
             subject: 'Fale Conosco - EMBR.',
-            text: 'Tipo: ' + dados.tipo + '\n Assunto: ' + dados.assunto + '\n Mensagem: ' + dados.mensagem
+            text: 'De: ' + user.email + '\n Tipo: ' + dados.tipo + '\n Assunto: ' + dados.assunto + '\n Mensagem: ' + dados.mensagem
 
         };
         email.sendMail(emailOptionsDep1);
@@ -35,7 +35,7 @@ exports.enviarFaleConosco = function (req, res) {
             from: user.email,
             to: 'administrativo@embr-bh.xyz',
             subject: 'Fale Conosco - EMBR.',
-            text: 'Tipo: ' + dados.tipo + '\n Assunto: ' + dados.assunto + '\n Mensagem: ' + dados.mensagem
+            text: 'De: ' + user.email + '\n Tipo: ' + dados.tipo + '\n Assunto: ' + dados.assunto + '\n Mensagem: ' + dados.mensagem
 
         };
         email.sendMail(emailOptionsDep2);

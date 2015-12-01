@@ -41,7 +41,7 @@ module.exports = function(mongoose) {
 
         cep: {type: String, required: true},
 
-        complemento: {type: String, required: true},
+        complemento: {type: String},
 
         bairro: {type: String, required: true},
 

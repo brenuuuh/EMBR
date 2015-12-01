@@ -182,7 +182,7 @@ Ext.define('Admin.view.authentication.Register', {
                     cls: 'auth-textbox',
                     height: 20,
                     hideLabel: true,
-                    allowBlank : false,
+                    allowBlank : true,
                     name: 'complemento',
                     emptyText: 'Complemento',
                     bind: '{complemento}',

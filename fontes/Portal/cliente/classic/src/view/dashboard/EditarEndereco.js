@@ -52,7 +52,7 @@ Ext.define("Admin.view.dashboard.EditarEndereco", {
                     name: 'complemento',
                     fieldLabel: 'Complemento',
                     height: 30,
-                    allowBlank : false
+                    allowBlank : true
                 },
                 {
                     xtype: 'textfield',
