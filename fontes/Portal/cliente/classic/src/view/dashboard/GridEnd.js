@@ -22,8 +22,7 @@ Ext.define('Admin.view.dashboard.GridEnd', {
     },
     layout: 'border',
     defaults: {
-        scrollable: 'y',
-        bodyPadding: 10
+        scrollable: 'y'
     },
     items: [
         {

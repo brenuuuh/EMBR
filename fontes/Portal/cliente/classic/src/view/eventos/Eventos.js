@@ -20,8 +20,7 @@ Ext.define('Admin.view.eventos.Eventos', {
     },
     layout: 'border',
     defaults: {
-        scrollable: 'y',
-        bodyPadding: 10
+        scrollable: 'y'
     },
     items: [
         {
@@ -51,7 +50,7 @@ Ext.define('Admin.view.eventos.Eventos', {
 
                     text: 'Descrição',
                     dataIndex: 'descricao',
-                    flex: 1
+                    flex: 3
                 },
                 {
                     text: 'Data do Evento',

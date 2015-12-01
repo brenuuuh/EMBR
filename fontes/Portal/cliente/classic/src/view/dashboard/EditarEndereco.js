@@ -7,7 +7,6 @@ Ext.define("Admin.view.dashboard.EditarEndereco", {
     xtype: 'editarEndereco',
 
     controller: 'dashboard',
-    bodyPadding: 10,
     title: 'Edição de Endereço',
     autoShow: true,
     width: 520,
@@ -24,6 +23,7 @@ Ext.define("Admin.view.dashboard.EditarEndereco", {
                     fieldLabel: 'Logradouro',
                     name: 'logradouro',
                     height: 30,
+                    maskRe: /[A-Z,a-z ]/,
                     allowBlank : false
                 },
                 {
@@ -31,6 +31,7 @@ Ext.define("Admin.view.dashboard.EditarEndereco", {
                     fieldLabel: 'Número',
                     name: 'numero',
                     height: 30,
+                    maskRe: /[0-9]/,
                     allowBlank : false
                 },
                 {
@@ -38,6 +39,7 @@ Ext.define("Admin.view.dashboard.EditarEndereco", {
                     name: 'endereco',
                     fieldLabel: 'Endereco',
                     height: 30,
+                    maskRe: /[A-Z,a-z ]/,
                     allowBlank : false
                 },
                 {
@@ -45,6 +47,7 @@ Ext.define("Admin.view.dashboard.EditarEndereco", {
                     fieldLabel: 'CEP',
                     name: 'cep',
                     height: 30,
+                    maskRe: /[0-9 -]/,
                     allowBlank : false
                 },
                 {
@@ -52,6 +55,7 @@ Ext.define("Admin.view.dashboard.EditarEndereco", {
                     name: 'complemento',
                     fieldLabel: 'Complemento',
                     height: 30,
+                    maskRe: /[A-Z,a-z ]/,
                     allowBlank : true
                 },
                 {
@@ -59,6 +63,7 @@ Ext.define("Admin.view.dashboard.EditarEndereco", {
                     name: 'bairro',
                     fieldLabel: 'Bairro',
                     height: 30,
+                    maskRe: /[A-Z,a-z ]/,
                     allowBlank : false
 
                 },
@@ -67,6 +72,7 @@ Ext.define("Admin.view.dashboard.EditarEndereco", {
                     name: 'estado',
                     fieldLabel: 'Estado',
                     height: 30,
+                    maskRe: /[A-Z,a-z ]/,
                     allowBlank : false
                 },
                 {
@@ -74,6 +80,7 @@ Ext.define("Admin.view.dashboard.EditarEndereco", {
                     name: 'cidade',
                     fieldLabel: 'Cidade',
                     height: 30,
+                    maskRe: /[A-Z,a-z ]/,
                     allowBlank : false
                 },
 

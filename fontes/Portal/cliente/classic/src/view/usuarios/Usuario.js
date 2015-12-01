@@ -16,8 +16,7 @@ Ext.define('Admin.view.usuarios.Usuario', {
     },
     layout: 'border',
     defaults: {
-        scrollable: 'y',
-        bodyPadding: 10
+        scrollable: 'y'
     },
     items: [
         {

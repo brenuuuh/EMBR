@@ -18,8 +18,7 @@ Ext.define('Admin.view.lista.ListaEventos', {
     },
     layout: 'border',
     defaults: {
-        scrollable: 'y',
-        bodyPadding: 10
+        scrollable: 'y'
     },
     items: [
         {
@@ -47,7 +46,7 @@ Ext.define('Admin.view.lista.ListaEventos', {
 
                     text: 'Descrição',
                     dataIndex: 'descricao',
-                    flex: 1,
+                    flex: 3,
                     editable:false
                 },
                 {
